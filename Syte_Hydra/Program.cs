@@ -15,7 +15,7 @@ namespace Syte_Hydra
 
             string mySrc = HttpMethods.Get(url, referer, ref myCookies);
             string token = GetBetween(mySrc, "name=\"__SART\" type=\"hidden\" value=\"", "=\" />");
-            string username = "glebon1802@gmail.com";
+            string username = "glebon1802ail.com";
             string password = "gleb2000";
 
             string postData = String.Format("ReturnUrl=%2F&AuthEmail={0}&AuthPassword={1}&__SART={2}%3D", username, password, token);
@@ -53,7 +53,7 @@ namespace Syte_Hydra
             foreach (var elem in tokens)
                 Console.WriteLine(elem);
 
-            tokens[1] = tokens[1].Replace("&#x2B;", "+");
+            tokens[1] = tokens[1].Replace("&#x2B;", "%2B");
             return tokens[1];
 
             //int startIndex = msg.IndexOf(start) + start.Length;

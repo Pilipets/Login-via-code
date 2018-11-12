@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
-using System.Net;
-using System.IO;
-namespace Syte_Hydra
+
+namespace ConsoleLogin
 {
     class HttpMethods
     {
@@ -49,18 +50,12 @@ namespace Syte_Hydra
             }
 
             string pageSrc = "";
-            try
+
+            HttpWebResponse resp = (HttpWebResponse)req.GetResponse();
+            cookies.Add(resp.Cookies);
+            using (StreamReader sr = new StreamReader(resp.GetResponseStream()))
             {
-                HttpWebResponse resp = (HttpWebResponse)req.GetResponse();
-                cookies.Add(resp.Cookies);
-                using (StreamReader sr = new StreamReader(resp.GetResponseStream()))
-                {
-                    pageSrc = sr.ReadToEnd();
-                }
-            }
-            catch (WebException ex)
-            {
-                Console.WriteLine(ex.Response.Headers);
+                pageSrc = sr.ReadToEnd();
             }
 
             return (!pageSrc.Contains(key));
