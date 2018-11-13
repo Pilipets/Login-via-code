@@ -47,14 +47,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Core\BruteCore.cs" />
-    <Compile Include="Core\BruteInfo\BruteInfo.cs" />
+    <Compile Include="Core\PageLogin\LoginCore.cs" />
+    <Compile Include="Core\Parser\Parser.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Core\HttpMethods.cs" />
+    <Compile Include="Core\PageLogin\HttpMethods.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">
@@ -82,8 +83,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Core\Parser\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

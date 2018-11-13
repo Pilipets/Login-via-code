@@ -8,16 +8,17 @@ using System.Threading.Tasks;
 
 namespace ConsoleLogin
 {
-    class HttpMethods:BruteInfo
-    { 
-        public string Get(WebProxy proxy, ref CookieContainer cookies)
+    class HttpMethods
+    {
+        protected string Get(string url, string referer, WebProxy proxy, ref CookieContainer cookies)
         {
-            HttpWebRequest req = (HttpWebRequest)WebRequest.Create(navigateUrl);
+            HttpWebRequest req = (HttpWebRequest)WebRequest.Create(url);
             req.Method = "GET";
             req.CookieContainer = cookies;
             req.ContentType = "application/x-www-form-urlencoded";
             req.UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36";
-            req.Referer = navigateReferer;
+            req.Referer = referer;
+            //req.Proxy=
 
             HttpWebResponse resp = (HttpWebResponse)req.GetResponse();
             cookies.Add(resp.Cookies);
@@ -31,14 +32,15 @@ namespace ConsoleLogin
             return pageSrc;
         }
 
-        public bool Post(string postData, WebProxy proxy, CookieContainer cookies = null)
+        protected bool Post(string postData, string url, string referer, WebProxy proxy, 
+            Encoding encoding, string indicateString, CookieContainer cookies = null)
         {
 
-            HttpWebRequest req = (HttpWebRequest)WebRequest.Create(postUrl);
+            HttpWebRequest req = (HttpWebRequest)WebRequest.Create(url);
             req.Method = "POST";
             req.CookieContainer = cookies;
             req.UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36";
-            req.Referer = postReferer;
+            req.Referer = referer;
             req.ContentType = "application/x-www-form-urlencoded";
             req.Accept = "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8";
 
@@ -57,7 +59,7 @@ namespace ConsoleLogin
                 pageSrc = sr.ReadToEnd();
             }
 
-            return (!pageSrc.Contains(key));
+            return (!pageSrc.Contains(indicateString));
         }
     }
 }

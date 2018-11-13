@@ -13,6 +13,7 @@ namespace ConsoleLogin
     public partial class Form1 : Form
     {
         BruteCore core = null;
+
         public Form1()
         {
             InitializeComponent();
@@ -25,7 +26,21 @@ namespace ConsoleLogin
 
         private void btnTest_Click(object sender, EventArgs e)
         {
-            core.TestPage(txtUsername.Text, txtPassword.Text);
+            try
+            {
+                core.TestPage(txtUsername.Text, txtPassword.Text);
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void btnSaveProperties_Click(object sender, EventArgs e)
+        {
+            LoginCore siteInfo = new LoginCore(txtIndicateString.Text, txtPostString.Text,txtPostUrl.Text,
+                txtPostReferer.Text,txtNavigateUrl.Text,txtNavigateReferer.Text);
+            core = new BruteCore(siteInfo);
         }
     }
 }

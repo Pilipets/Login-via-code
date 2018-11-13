@@ -7,35 +7,23 @@ using System.Threading.Tasks;
 
 namespace ConsoleLogin
 {
-    class BruteCore : HttpMethods
+    class BruteCore
     {
-        HttpMethods login;
+        LoginCore page;
         WebProxy defaultProxy;
         WebProxy currentProxy;
         bool keepSending;
 
         public void TestPage(string username, string password)
-        {
-            string postData = postPattern;
-            postPattern.Replace("'USER'", username);
-            postPattern.Replace("'PASS'", password);
-
-            if (isTokenRequired)
-            {
-                CookieContainer myCookies = new CookieContainer();
-                string pageCode = Get(currentProxy, ref myCookies);
-                string token = Process(pageCode);
-                keepSending = !Post(postData, currentProxy, myCookies);
-            }
-            else
-            {
-                keepSending = !Post(postData, currentProxy);
-            }
+        { 
+            page.Login(username, password, currentProxy);
         }
-
-        private string Process(string pageCode)
+        public BruteCore(LoginCore page)
         {
-            return "";
+            defaultProxy = WebRequest.DefaultWebProxy as WebProxy;
+            currentProxy = defaultProxy;
+            keepSending = false;
+            this.page = page;
         }
     }
 }
