@@ -12,6 +12,7 @@ namespace ConsoleLogin
 {
     public partial class Form1 : Form
     {
+        BruteCore core = null;
         public Form1()
         {
             InitializeComponent();
@@ -24,12 +25,7 @@ namespace ConsoleLogin
 
         private void btnTest_Click(object sender, EventArgs e)
         {
-            string postData = txtPostString.Text;
-
-            postData.Replace("USER", txtUsername.Text);
-            postData.Replace("PASS", txtPassword.Text);
-
-            
+            core.TestPage(txtUsername.Text, txtPassword.Text);
         }
     }
 }

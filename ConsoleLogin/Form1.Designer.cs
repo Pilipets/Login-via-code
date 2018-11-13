@@ -56,6 +56,7 @@
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.textBox4 = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
+            this.btnSaveProperties = new System.Windows.Forms.Button();
             this.tabControl2.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -416,11 +417,22 @@
             this.label8.TabIndex = 14;
             this.label8.Text = "Referer";
             // 
+            // btnSaveProperties
+            // 
+            this.btnSaveProperties.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSaveProperties.Location = new System.Drawing.Point(981, 16);
+            this.btnSaveProperties.Name = "btnSaveProperties";
+            this.btnSaveProperties.Size = new System.Drawing.Size(175, 57);
+            this.btnSaveProperties.TabIndex = 18;
+            this.btnSaveProperties.Text = "SaveProperties";
+            this.btnSaveProperties.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1182, 675);
+            this.Controls.Add(this.btnSaveProperties);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.tabControl2);
             this.Controls.Add(this.txtPostString);
@@ -474,6 +486,7 @@
         private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Button btnSaveProperties;
     }
 }
 
