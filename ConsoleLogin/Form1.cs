@@ -42,5 +42,39 @@ namespace ConsoleLogin
                 txtPostReferer.Text,txtNavigateUrl.Text,txtNavigateReferer.Text);
             core = new BruteCore(siteInfo);
         }
+
+        private void btnSendFilePath_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Filter = "text files (*.txt)|*.txt|Richtext files (*.rtf)|*.rtf";
+
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                lblFilePath.Text = ofd.FileName;
+                btnStartSendFromFile.Enabled = true;
+            }
+        }
+
+        private void btnStartSendFromFile_Click(object sender, EventArgs e)
+        {
+            if(core != null)
+            {
+                btnStartSendFromFile.Enabled = false;
+                btnStopSendFromFile.Enabled = true;
+                core.StartBrute((int)frequencySeconds.Value,lblFilePath.Text);
+            }
+            else
+            {
+                MessageBox.Show("You need to add login page first");
+            }
+        }
+
+        private void btnStopSendFromFile_Click(object sender, EventArgs e)
+        {
+            core.StopBrute();
+            btnSendFilePath.Enabled = true;
+            btnStopSendFromFile.Enabled = false;
+            btnStartSendFromFile.Enabled = true;
+        }
     }
 }

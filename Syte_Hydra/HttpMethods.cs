@@ -60,7 +60,7 @@ namespace Syte_Hydra
             }
             catch (WebException ex)
             {
-                Console.WriteLine(ex.Response.Headers);
+                Console.WriteLine(ex.Message);
             }
 
             return (!pageSrc.Contains(key));

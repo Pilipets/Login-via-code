@@ -248,7 +248,7 @@
             this.frequencySeconds.Size = new System.Drawing.Size(69, 23);
             this.frequencySeconds.TabIndex = 14;
             this.frequencySeconds.Value = new decimal(new int[] {
-            10,
+            1,
             0,
             0,
             0});
@@ -271,6 +271,7 @@
             this.btnStopSendFromFile.TabIndex = 13;
             this.btnStopSendFromFile.Text = "Stop Sending";
             this.btnStopSendFromFile.UseVisualStyleBackColor = false;
+            this.btnStopSendFromFile.Click += new System.EventHandler(this.btnStopSendFromFile_Click);
             // 
             // btnStartSendFromFile
             // 
@@ -290,6 +291,7 @@
             this.btnStartSendFromFile.TabIndex = 12;
             this.btnStartSendFromFile.Text = "Start Sending";
             this.btnStartSendFromFile.UseVisualStyleBackColor = false;
+            this.btnStartSendFromFile.Click += new System.EventHandler(this.btnStartSendFromFile_Click);
             // 
             // btnSendFilePath
             // 
@@ -308,6 +310,7 @@
             this.btnSendFilePath.TabIndex = 11;
             this.btnSendFilePath.Text = "Passwords File";
             this.btnSendFilePath.UseVisualStyleBackColor = false;
+            this.btnSendFilePath.Click += new System.EventHandler(this.btnSendFilePath_Click);
             // 
             // tabControl1
             // 

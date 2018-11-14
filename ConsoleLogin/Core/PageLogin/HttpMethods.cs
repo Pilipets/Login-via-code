@@ -10,7 +10,7 @@ namespace ConsoleLogin
 {
     class HttpMethods
     {
-        protected string Get(string url, string referer, WebProxy proxy, ref CookieContainer cookies)
+        protected async Task<string> Get(string url, string referer, WebProxy proxy, ref CookieContainer cookies)
         {
             HttpWebRequest req = (HttpWebRequest)WebRequest.Create(url);
             req.Method = "GET";
@@ -20,19 +20,19 @@ namespace ConsoleLogin
             req.Referer = referer;
             //req.Proxy=
 
-            HttpWebResponse resp = (HttpWebResponse)req.GetResponse();
+            HttpWebResponse resp = await req.GetResponseAsync() as HttpWebResponse;
             cookies.Add(resp.Cookies);
 
             string pageSrc;
             using (StreamReader sr = new StreamReader(resp.GetResponseStream()))
             {
-                pageSrc = sr.ReadToEnd();
+                pageSrc = await sr.ReadToEndAsync();
             }
 
             return pageSrc;
         }
 
-        protected bool Post(string postData, string url, string referer, WebProxy proxy, 
+        protected async Task<bool> Post(string postData, string url, string referer, WebProxy proxy, 
             Encoding encoding, string indicateString, CookieContainer cookies = null)
         {
 
@@ -44,19 +44,18 @@ namespace ConsoleLogin
             req.ContentType = "application/x-www-form-urlencoded";
             req.Accept = "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8";
 
-            using (Stream postStream = req.GetRequestStream())
+            using (Stream postStream = await req.GetRequestStreamAsync())
             {
                 byte[] postBytes = encoding.GetBytes(postData);
-                postStream.Write(postBytes, 0, postBytes.Length);
+                await postStream.WriteAsync(postBytes, 0, postBytes.Length);
             }
 
-            string pageSrc = "";
-
-            HttpWebResponse resp = (HttpWebResponse)req.GetResponse();
+            HttpWebResponse resp = await req.GetResponseAsync() as HttpWebResponse;
             cookies.Add(resp.Cookies);
+            string pageSrc = "";
             using (StreamReader sr = new StreamReader(resp.GetResponseStream()))
             {
-                pageSrc = sr.ReadToEnd();
+                pageSrc = await sr.ReadToEndAsync();
             }
 
             return (!pageSrc.Contains(indicateString));

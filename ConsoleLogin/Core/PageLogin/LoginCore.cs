@@ -34,16 +34,19 @@ namespace ConsoleLogin
             this.navigateUrl = navigateUrl;
             this.navigateReferer = navigateReferer;
         }
+        public LoginCore()
+        {
 
-        public string Get(WebProxy proxy, ref CookieContainer cookies)
-        {
-            return base.Get(navigateUrl, navigateReferer, proxy, ref cookies);
         }
-        public bool Post(string postData, WebProxy proxy, CookieContainer cookies = null)
+        public async Task<string> Get(WebProxy proxy, ref CookieContainer cookies)
         {
-            return base.Post(postData, postUrl, postReferer, proxy, encoding, indicateString, cookies);
+            return await base.Get(navigateUrl, navigateReferer, proxy, ref cookies);
         }
-        public bool Login(string username, string password, WebProxy proxy)
+        public async Task<bool> Post(string postData, WebProxy proxy, CookieContainer cookies = null)
+        {
+            return await base.Post(postData, postUrl, postReferer, proxy, encoding, indicateString, cookies);
+        }
+        public async Task<bool> Login(string username, string password, WebProxy proxy)
         {
             string postData = postPattern;
             postData = postData.Replace("'USER'", username);
@@ -54,11 +57,11 @@ namespace ConsoleLogin
                 string pageCode = Get(proxy, ref myCookies);
                 string  token = Parser.GetBetween(pageCode, "name=\"__SART\" type=\"hidden\" value=\"", "=\" />");
                 postData = postData.Replace("'TOKEN'", token);
-                return Post(postData, proxy, myCookies);
+                return await Post(postData, proxy, myCookies);
             }
             else
             {
-                return Post(postData, proxy);
+                return await Post(postData, proxy);
             }
         }
     }
