@@ -7,13 +7,14 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Reflection;
+using System.ComponentModel;
 
 namespace ConsoleLogin
 {
     class BruteCore
     {
         LoginCore page;
-        List<LoginCore> pages;
+        public BindingList<LoginCore> pages;
         WebProxy defaultProxy;
         WebProxy currentProxy;
         bool keepSending;
@@ -21,7 +22,7 @@ namespace ConsoleLogin
         public BruteCore()
         {
             keepSending = false;
-            pages = new List<LoginCore>();
+            pages = new BindingList<LoginCore>();
         }
         public async void TestPage(string username, string password)
         { 
@@ -61,6 +62,7 @@ namespace ConsoleLogin
             do
             {
                 string _filePath = await reader.ReadLineAsync();
+                _filePath = string.Format("{0}\\Files\\{1}",path.Substring(0, path.LastIndexOf('\\')),_filePath);
                 LoginCore newPage = await LoginCore.InitializeFromFile(_filePath);
                 pages.Add(newPage);
             } while (reader.Peek() >= 0);

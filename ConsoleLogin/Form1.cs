@@ -19,10 +19,13 @@ namespace ConsoleLogin
             InitializeComponent();
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private async void Form1_Load(object sender, EventArgs e)
         {
             core = new BruteCore();
-            core.ReadPagesFromFile($@"E:\Programming\C#\Practice\Login-via-code\ConsoleLogin\LoginPages\LoginPages.txt");
+            await Task.Run(() => core.ReadPagesFromFile($@"E:\Programming\C#\Practice\Login-via-code\ConsoleLogin\LoginPages\LoginPages.txt"));
+            //core.ReadPagesFromFile($@"E:\Programming\C#\Practice\Login-via-code\ConsoleLogin\LoginPages\LoginPages.txt");
+            listBoxPages.DataSource = core.pages;
+            listBoxPages.DisplayMember = "Name";
         }
 
         private void btnTest_Click(object sender, EventArgs e)
@@ -39,9 +42,10 @@ namespace ConsoleLogin
 
         private void btnSaveProperties_Click(object sender, EventArgs e)
         {
-            LoginCore siteInfo = new LoginCore(txtIndicateString.Text, txtPostString.Text,txtPostUrl.Text,
+            LoginCore siteInfo = new LoginCore("default",txtIndicateString.Text, txtPostString.Text,txtPostUrl.Text,
                 txtPostReferer.Text,txtNavigateUrl.Text,txtNavigateReferer.Text);
             core.AddPage(siteInfo);
+            Console.WriteLine(listBoxPages.Items.Count);
         }
 
         private void btnSendFilePath_Click(object sender, EventArgs e)
@@ -56,13 +60,13 @@ namespace ConsoleLogin
             }
         }
 
-        private void btnStartSendFromFile_Click(object sender, EventArgs e)
+        private async void btnStartSendFromFile_Click(object sender, EventArgs e)
         {
             if(core != null)
             {
                 btnStartSendFromFile.Enabled = false;
                 btnStopSendFromFile.Enabled = true;
-                core.StartBrute((int)frequencySeconds.Value,lblFilePath.Text);
+                await Task.Run(() => core.StartBrute((int)frequencySeconds.Value,lblFilePath.Text));
             }
             else
             {

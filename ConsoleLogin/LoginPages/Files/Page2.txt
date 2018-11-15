@@ -1,8 +1,8 @@
-﻿name: "XAMPP/DWWA - LocalServer"
-postPattern: "username='USER'&password='PASS'&Login=Login&user_token='TOKEN'"
-posturl: "http://localhost/dvwa/login.php"
-postReferer: "http://localhost/dvwa/login.php"
-encoding: ASCII;
-navigateUrl: "http://localhost/dvwa/login.php"
-navigateReferer: "http://localhost/dvwa/login.php"
-indicateString: "Login failed"
+﻿Name: XAMPP/DWWA - LocalServer
+postPattern: "username='USER'&password='PASS'&Login=Login&user_token='TOKEN'
+posturl: http://localhost/dvwa/login.php
+postReferer: "http://localhost/dvwa/login.php
+pageEncoding: ASCII
+navigateUrl: http://localhost/dvwa/login.php
+navigateReferer: http://localhost/dvwa/login.php
+indicateString: Login failed
