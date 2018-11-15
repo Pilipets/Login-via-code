@@ -21,7 +21,8 @@ namespace ConsoleLogin
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            core = new BruteCore();
+            core.ReadPagesFromFile($@"E:\Programming\C#\Practice\Login-via-code\ConsoleLogin\LoginPages\LoginPages.txt");
         }
 
         private void btnTest_Click(object sender, EventArgs e)
@@ -40,7 +41,7 @@ namespace ConsoleLogin
         {
             LoginCore siteInfo = new LoginCore(txtIndicateString.Text, txtPostString.Text,txtPostUrl.Text,
                 txtPostReferer.Text,txtNavigateUrl.Text,txtNavigateReferer.Text);
-            core = new BruteCore(siteInfo);
+            core.AddPage(siteInfo);
         }
 
         private void btnSendFilePath_Click(object sender, EventArgs e)

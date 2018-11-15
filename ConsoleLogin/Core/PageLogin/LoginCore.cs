@@ -14,7 +14,7 @@ namespace ConsoleLogin
         public Encoding encoding { get; set; } = Encoding.UTF8;
         public string indicateString = "<title>Ошибка входа - Все для студента</title>";
 
-        public string postPattern { get; set }
+        public string postPattern { get; set; }
             = "ReturnUrl=%2F&AuthEmail='USER'&AuthPassword='PASS'&__SART='TOKEN'%3D";
 
         public string postUrl { get; set; } = "https://www.twirpx.com/auth/login/";
@@ -68,29 +68,23 @@ namespace ConsoleLogin
                 return await Post(postData, proxy);
             }
         }
-        public static List<LoginCore> InitializeFromFile(string path)
+        public async static Task<LoginCore> InitializeFromFile(string path)
         {
-            List<LoginCore> loginCores = new List<LoginCore>();
             var file = new FileStream(path, FileMode.Open, FileAccess.Read);
             var reader = new StreamReader(file);
-            LoginCore newPage;
+            LoginCore newPage = new LoginCore();
             do
             {
-                newPage = new LoginCore();
-                string _line = reader.ReadLine();
+                string _line = await reader.ReadLineAsync();
                 string property = _line.Substring(0, _line.IndexOf(':'));
                 string value = _line.Substring(_line.IndexOf(':') + 2);
                 typeof(LoginCore).GetProperty(property).SetValue(newPage, value);
-                if(property == "name")
-                {
-                    file.Seek(Encoding.ASCII.GetByteCount(_line), SeekOrigin.Current);
-                    loginCores.Add(newPage);
-                }
                 
             } while (reader.Peek() >= 0);
             reader.Dispose();
-            loginCores.Add(newPage);
-            return loginCores;
+            file.Dispose();
+            newPage.isTokenRequired = newPage.postPattern.Contains("'TOKEN'");
+            return newPage;
         }
     }
 }

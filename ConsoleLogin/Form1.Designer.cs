@@ -59,6 +59,13 @@
             this.btnSaveProperties = new System.Windows.Forms.Button();
             this.txtIndicateString = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
+            this.tabControl3 = new System.Windows.Forms.TabControl();
+            this.tabPage7 = new System.Windows.Forms.TabPage();
+            this.tabPage6 = new System.Windows.Forms.TabPage();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabelErrorCount = new System.Windows.Forms.ToolStripStatusLabel();
+            this.listBoxPages = new System.Windows.Forms.ListBox();
             this.tabControl2.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -67,6 +74,9 @@
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage5.SuspendLayout();
+            this.tabControl3.SuspendLayout();
+            this.tabPage7.SuspendLayout();
+            this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // txtPostString
@@ -100,7 +110,7 @@
             this.tabControl2.Controls.Add(this.tabPage3);
             this.tabControl2.Controls.Add(this.tabPage4);
             this.tabControl2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tabControl2.Location = new System.Drawing.Point(543, 102);
+            this.tabControl2.Location = new System.Drawing.Point(543, 90);
             this.tabControl2.Margin = new System.Windows.Forms.Padding(4);
             this.tabControl2.Name = "tabControl2";
             this.tabControl2.SelectedIndex = 0;
@@ -316,7 +326,7 @@
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage5);
-            this.tabControl1.Location = new System.Drawing.Point(43, 93);
+            this.tabControl1.Location = new System.Drawing.Point(47, 81);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(367, 143);
@@ -461,11 +471,80 @@
             this.label9.TabIndex = 20;
             this.label9.Text = "IndicateString:";
             // 
+            // tabControl3
+            // 
+            this.tabControl3.Controls.Add(this.tabPage7);
+            this.tabControl3.Controls.Add(this.tabPage6);
+            this.tabControl3.Location = new System.Drawing.Point(43, 231);
+            this.tabControl3.Name = "tabControl3";
+            this.tabControl3.SelectedIndex = 0;
+            this.tabControl3.Size = new System.Drawing.Size(1109, 380);
+            this.tabControl3.TabIndex = 21;
+            // 
+            // tabPage7
+            // 
+            this.tabPage7.Controls.Add(this.listBoxPages);
+            this.tabPage7.Location = new System.Drawing.Point(4, 25);
+            this.tabPage7.Name = "tabPage7";
+            this.tabPage7.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage7.Size = new System.Drawing.Size(1101, 351);
+            this.tabPage7.TabIndex = 0;
+            this.tabPage7.Text = "LoginPages";
+            this.tabPage7.UseVisualStyleBackColor = true;
+            // 
+            // tabPage6
+            // 
+            this.tabPage6.Location = new System.Drawing.Point(4, 25);
+            this.tabPage6.Name = "tabPage6";
+            this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage6.Size = new System.Drawing.Size(1101, 351);
+            this.tabPage6.TabIndex = 1;
+            this.tabPage6.Text = "List of Errors";
+            this.tabPage6.UseVisualStyleBackColor = true;
+            // 
+            // statusStrip1
+            // 
+            this.statusStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripStatusLabel2,
+            this.toolStripStatusLabelErrorCount});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 650);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Padding = new System.Windows.Forms.Padding(1, 0, 19, 0);
+            this.statusStrip1.Size = new System.Drawing.Size(1182, 25);
+            this.statusStrip1.TabIndex = 22;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // toolStripStatusLabel2
+            // 
+            this.toolStripStatusLabel2.BackColor = System.Drawing.SystemColors.Control;
+            this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
+            this.toolStripStatusLabel2.Size = new System.Drawing.Size(69, 20);
+            this.toolStripStatusLabel2.Text = "       |       ";
+            // 
+            // toolStripStatusLabelErrorCount
+            // 
+            this.toolStripStatusLabelErrorCount.BackColor = System.Drawing.Color.Red;
+            this.toolStripStatusLabelErrorCount.Name = "toolStripStatusLabelErrorCount";
+            this.toolStripStatusLabelErrorCount.Size = new System.Drawing.Size(166, 20);
+            this.toolStripStatusLabelErrorCount.Text = "List of Errors Counter : 0";
+            // 
+            // listBoxPages
+            // 
+            this.listBoxPages.FormattingEnabled = true;
+            this.listBoxPages.ItemHeight = 16;
+            this.listBoxPages.Location = new System.Drawing.Point(24, 20);
+            this.listBoxPages.Name = "listBoxPages";
+            this.listBoxPages.Size = new System.Drawing.Size(533, 308);
+            this.listBoxPages.TabIndex = 0;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1182, 675);
+            this.Controls.Add(this.statusStrip1);
+            this.Controls.Add(this.tabControl3);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.txtIndicateString);
             this.Controls.Add(this.btnSaveProperties);
@@ -488,6 +567,10 @@
             this.tabPage1.PerformLayout();
             this.tabPage5.ResumeLayout(false);
             this.tabPage5.PerformLayout();
+            this.tabControl3.ResumeLayout(false);
+            this.tabPage7.ResumeLayout(false);
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -525,6 +608,13 @@
         private System.Windows.Forms.TextBox txtIndicateString;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TextBox txtPostString;
+        private System.Windows.Forms.TabControl tabControl3;
+        private System.Windows.Forms.TabPage tabPage7;
+        private System.Windows.Forms.TabPage tabPage6;
+        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelErrorCount;
+        private System.Windows.Forms.ListBox listBoxPages;
     }
 }
 

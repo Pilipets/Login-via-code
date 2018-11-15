@@ -17,21 +17,16 @@ namespace ConsoleLogin
         WebProxy defaultProxy;
         WebProxy currentProxy;
         bool keepSending;
-        string defaultPagesPath;
-        CancellationTokenSource tokenSource = new CancellationTokenSource();
 
+        public BruteCore()
+        {
+            keepSending = false;
+            pages = new List<LoginCore>();
+        }
         public async void TestPage(string username, string password)
         { 
             await page.Login(username, password, currentProxy);
         }
-        public BruteCore(LoginCore page)
-        {
-            defaultProxy = WebRequest.DefaultWebProxy as WebProxy;
-            currentProxy = defaultProxy;
-            keepSending = false;
-            this.page = page;
-        }
-
         public async void StartBrute(int frequencySeconds,string passFile)
         {
             int sleepTime = frequencySeconds * 1000;
@@ -49,12 +44,29 @@ namespace ConsoleLogin
                         keepSending = false;
                         Console.WriteLine("tmp" + _line);
                     }
-                    //Thread.Sleep(sleepTime);
                 }
             }
             keepSending = false;
         }
-        public void ReadPagesFromFile() => pages = LoginCore.InitializeFromFile(defaultPagesPath);
+
+        public void AddPage(LoginCore siteInfo)
+        {
+            pages.Add(siteInfo);
+        }
+
+        public async void ReadPagesFromFile(string path)
+        {
+            FileStream file = new FileStream(path, FileMode.Open, FileAccess.Read);
+            var reader = new StreamReader(file);
+            do
+            {
+                string _filePath = await reader.ReadLineAsync();
+                LoginCore newPage = await LoginCore.InitializeFromFile(_filePath);
+                pages.Add(newPage);
+            } while (reader.Peek() >= 0);
+            reader.Dispose();
+            file.Dispose();
+        }
         public void StopBrute()
         {
             keepSending = false;
