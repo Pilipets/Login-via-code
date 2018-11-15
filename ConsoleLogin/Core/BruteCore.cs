@@ -6,20 +6,23 @@ using System.Net;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Reflection;
 
 namespace ConsoleLogin
 {
     class BruteCore
     {
         LoginCore page;
+        List<LoginCore> pages;
         WebProxy defaultProxy;
         WebProxy currentProxy;
         bool keepSending;
+        string defaultPagesPath;
         CancellationTokenSource tokenSource = new CancellationTokenSource();
 
-        public void TestPage(string username, string password)
+        public async void TestPage(string username, string password)
         { 
-            page.Login(username, password, currentProxy);
+            await page.Login(username, password, currentProxy);
         }
         public BruteCore(LoginCore page)
         {
@@ -51,7 +54,7 @@ namespace ConsoleLogin
             }
             keepSending = false;
         }
-
+        public void ReadPagesFromFile() => pages = LoginCore.InitializeFromFile(defaultPagesPath);
         public void StopBrute()
         {
             keepSending = false;

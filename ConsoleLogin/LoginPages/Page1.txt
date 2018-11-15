@@ -1,0 +1,8 @@
+﻿name: "Twirpx - Все для студента"
+postPattern: "ReturnUrl=%2F&AuthEmail='USER'&AuthPassword='PASS'&__SART='TOKEN'%3D";
+posturl: "https://www.twirpx.com/auth/login/";
+postReferer: "";
+encoding: UTF8;
+navigateUrl: "https://www.twirpx.com/";
+navigateReferer: "";
+indicateString: "<title>Ошибка входа - Все для студента</title>";

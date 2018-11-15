@@ -10,8 +10,9 @@ namespace ConsoleLogin
 {
     class HttpMethods
     {
-        protected async Task<string> Get(string url, string referer, WebProxy proxy, ref CookieContainer cookies)
+        protected async Task<Tuple<string, CookieContainer>> Get(string url, string referer, WebProxy proxy)
         {
+            CookieContainer cookies = new CookieContainer();
             HttpWebRequest req = (HttpWebRequest)WebRequest.Create(url);
             req.Method = "GET";
             req.CookieContainer = cookies;
@@ -29,7 +30,7 @@ namespace ConsoleLogin
                 pageSrc = await sr.ReadToEndAsync();
             }
 
-            return pageSrc;
+            return Tuple.Create(pageSrc, cookies);
         }
 
         protected async Task<bool> Post(string postData, string url, string referer, WebProxy proxy, 
