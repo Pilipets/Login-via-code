@@ -13,7 +13,6 @@ namespace ConsoleLogin
     public partial class Form1 : Form
     {
         BruteCore core = null;
-
         public Form1()
         {
             InitializeComponent();
@@ -22,12 +21,16 @@ namespace ConsoleLogin
         private async void Form1_Load(object sender, EventArgs e)
         {
             core = new BruteCore();
-            await Task.Run(() => core.ReadPagesFromFile($@"E:\Programming\C#\Practice\Login-via-code\ConsoleLogin\LoginPages\LoginPages.txt"));
-            //core.ReadPagesFromFile($@"E:\Programming\C#\Practice\Login-via-code\ConsoleLogin\LoginPages\LoginPages.txt");
+            await Task.Run(() => core.ReadPagesFromFile(@"E:\Programming\C#\Practice\Login-via-code\ConsoleLogin\LoginPages\LoginPages.txt"));
+            //core.ReadPagesFromFile(@"E:\Programming\C#\Practice\Login-via-code\ConsoleLogin\LoginPages\LoginPages.txt");
             listBoxPages.DataSource = core.pages;
             listBoxPages.DisplayMember = "Name";
         }
 
+        void DisplayError(string message)
+        {
+            Console.WriteLine(message);
+        }
         private void btnTest_Click(object sender, EventArgs e)
         {
             try
@@ -60,13 +63,13 @@ namespace ConsoleLogin
             }
         }
 
-        private async void btnStartSendFromFile_Click(object sender, EventArgs e)
+        private void btnStartSendFromFile_Click(object sender, EventArgs e)
         {
             if(core != null)
             {
                 btnStartSendFromFile.Enabled = false;
                 btnStopSendFromFile.Enabled = true;
-                await Task.Run(() => core.StartBrute((int)frequencySeconds.Value,lblFilePath.Text));
+                core.StartBrute((int)frequencySeconds.Value,lblFilePath.Text);
             }
             else
             {

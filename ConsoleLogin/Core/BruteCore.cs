@@ -21,6 +21,7 @@ namespace ConsoleLogin
 
         public BruteCore()
         {
+            defaultProxy = WebProxy.GetDefaultProxy();
             keepSending = false;
             pages = new BindingList<LoginCore>();
         }
@@ -68,6 +69,7 @@ namespace ConsoleLogin
             } while (reader.Peek() >= 0);
             reader.Dispose();
             file.Dispose();
+            page = pages[0];
         }
         public void StopBrute()
         {
