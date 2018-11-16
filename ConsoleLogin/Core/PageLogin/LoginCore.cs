@@ -55,15 +55,15 @@ namespace ConsoleLogin
         public async Task<bool> Login(string username, string password, WebProxy proxy)
         {
             string postData = postPattern;
-            postData = postData.Replace("'USER'", username);
-            postData = postData.Replace("'PASS'", password);
+            postData = postData.Replace("'USER'", WebUtility.UrlEncode(username));
+            postData = postData.Replace("'PASS'", WebUtility.UrlEncode(password));
             if (isTokenRequired)
             {
                 var getData = await Get(proxy);
                 string pageCode = getData.Item1;
 
                 CookieContainer myCookies = getData.Item2;
-                string  token = Parser.GetBetween(pageCode, "name=\"__SART\" type=\"hidden\" value=\"", "=\" />");
+                string  token = Parser.GetBetween(pageCode, "name=\"__SART\" type=\"hidden\" value=\"", "\" />");
                 postData = postData.Replace("'TOKEN'", token);
                 return await Post(postData, proxy, myCookies);
             }

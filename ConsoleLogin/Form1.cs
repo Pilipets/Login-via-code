@@ -84,5 +84,12 @@ namespace ConsoleLogin
             btnStopSendFromFile.Enabled = false;
             btnStartSendFromFile.Enabled = true;
         }
+
+        private void listBoxPages_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int index = listBoxPages.SelectedIndex;
+            if (index > -1)
+                core.SetCurrentPage(core.pages[index]);
+        }
     }
 }

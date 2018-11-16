@@ -61,11 +61,11 @@
             this.label9 = new System.Windows.Forms.Label();
             this.tabControl3 = new System.Windows.Forms.TabControl();
             this.tabPage7 = new System.Windows.Forms.TabPage();
+            this.listBoxPages = new System.Windows.Forms.ListBox();
             this.tabPage6 = new System.Windows.Forms.TabPage();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabelErrorCount = new System.Windows.Forms.ToolStripStatusLabel();
-            this.listBoxPages = new System.Windows.Forms.ListBox();
             this.tabControl2.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -492,6 +492,16 @@
             this.tabPage7.Text = "LoginPages";
             this.tabPage7.UseVisualStyleBackColor = true;
             // 
+            // listBoxPages
+            // 
+            this.listBoxPages.FormattingEnabled = true;
+            this.listBoxPages.ItemHeight = 16;
+            this.listBoxPages.Location = new System.Drawing.Point(24, 20);
+            this.listBoxPages.Name = "listBoxPages";
+            this.listBoxPages.Size = new System.Drawing.Size(533, 308);
+            this.listBoxPages.TabIndex = 0;
+            this.listBoxPages.SelectedIndexChanged += new System.EventHandler(this.listBoxPages_SelectedIndexChanged);
+            // 
             // tabPage6
             // 
             this.tabPage6.Location = new System.Drawing.Point(4, 25);
@@ -528,15 +538,6 @@
             this.toolStripStatusLabelErrorCount.Name = "toolStripStatusLabelErrorCount";
             this.toolStripStatusLabelErrorCount.Size = new System.Drawing.Size(166, 20);
             this.toolStripStatusLabelErrorCount.Text = "List of Errors Counter : 0";
-            // 
-            // listBoxPages
-            // 
-            this.listBoxPages.FormattingEnabled = true;
-            this.listBoxPages.ItemHeight = 16;
-            this.listBoxPages.Location = new System.Drawing.Point(24, 20);
-            this.listBoxPages.Name = "listBoxPages";
-            this.listBoxPages.Size = new System.Drawing.Size(533, 308);
-            this.listBoxPages.TabIndex = 0;
             // 
             // Form1
             // 

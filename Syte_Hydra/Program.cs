@@ -8,23 +8,21 @@ using System.Threading.Tasks;
 
 namespace Syte_Hydra
 {
-    delegate void ErrorMessage(int message);
+    delegate void ErrorMessage(string message);
     class Program
     {
         static int Tmp { get; set; } = 0;
         static void Main(string[] args)
         {
-            //LoginStuff();
-            var instance1 = new TestClass(UpdateVariable);
-            var t = Task.Run(() => instance1.DoSomeWork());
+            var instance1 = new TestClass(Display);
+            instance1.DoSomeWork();
+            //instance1.DoSomeWork2();
+            Console.WriteLine("Hello, buddy");
             Console.ReadKey();
-            t.Wait();
         }
-        static void UpdateVariable(int i)
+        static void Display(string message)
         {
-            Console.WriteLine(i);
-            Tmp += i;
-            Console.WriteLine(Tmp);
+            Console.WriteLine(message);
         }
         //<input type="hidden" name="user_token" value="45f1f9e364bda3b155ef96e890f1474f">
         static string GetBetween(string msg, string start, string stop)

@@ -14,16 +14,41 @@ namespace Syte_Hydra
         {
             IndicateError = action;
         }
-        public async void DoSomeWork()
+        public void DoSomeWork()
         {
-            for (int i = 0; i < 7; i++)
+            List<Task> tasksList = new List<Task>();
+            CancellationTokenSource token = new CancellationTokenSource();
+            for (int i = 0; i < 10; i++)
             {
-                await Task.Run(() =>
-                {
-                    Thread.Sleep(3000);
-                    IndicateError(i);
-                });
+                Task checkTask = new Task(() => Login(i,token));
+                checkTask.Start();
+    
+                tasksList.Add(checkTask);
             }
+            Task.WaitAll(tasksList.ToArray());
+            IndicateError("Finished brute");
+        }
+        private void Login(int x, CancellationTokenSource tokenSource)
+        {
+            if (!tokenSource.IsCancellationRequested)
+            {
+                Thread.Sleep(3000);
+                IndicateError("Checking " + x.ToString());
+                if (x == 2000)
+                    tokenSource.Cancel();
+            }
+        }
+        public void DoSomeWork2()
+        {
+            Task.Run(async () =>
+            {
+                CancellationTokenSource token = new CancellationTokenSource();
+                for (int i = 0; i < 10; i++)
+                {
+                    await Task.Run(() => Login(i, token));
+                }
+                IndicateError("Finished brute");
+            });
         }
     }
 }

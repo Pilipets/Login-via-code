@@ -30,7 +30,7 @@ namespace ConsoleLogin
                 pageSrc = await sr.ReadToEndAsync();
             }
 
-            return Tuple.Create(pageSrc, cookies);
+            return Tuple.Create(WebUtility.HtmlDecode(pageSrc), cookies);
         }
 
         protected async Task<bool> Post(string postData, string url, string referer, WebProxy proxy, 

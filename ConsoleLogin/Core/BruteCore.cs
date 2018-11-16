@@ -75,5 +75,7 @@ namespace ConsoleLogin
         {
             keepSending = false;
         }
+
+        internal void SetCurrentPage(LoginCore loginCore) => page = loginCore;
     }
 }

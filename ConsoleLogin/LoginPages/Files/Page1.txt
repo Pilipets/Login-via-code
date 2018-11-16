@@ -1,5 +1,5 @@
 ﻿Name: Twirpx - Все для студента
-postPattern: ReturnUrl=%2F&AuthEmail='USER'&AuthPassword='PASS'&__SART='TOKEN'%3D
+postPattern: ReturnUrl=/&AuthEmail='USER'&AuthPassword='PASS'&__SART='TOKEN'
 postUrl: https://www.twirpx.com/auth/login/
 postReferer:
 pageEncoding: UTF8
