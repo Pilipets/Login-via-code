@@ -1,7 +1,7 @@
 ﻿Name: XAMPP/DWWA - LocalServer
-postPattern: "username='USER'&password='PASS'&Login=Login&user_token='TOKEN'
-posturl: http://localhost/dvwa/login.php
-postReferer: "http://localhost/dvwa/login.php
+postPattern: username='USER'&password='PASS'&Login=Login&user_token='TOKEN'
+postUrl: http://localhost/dvwa/login.php
+postReferer: http://localhost/dvwa/login.php
 pageEncoding: ASCII
 navigateUrl: http://localhost/dvwa/login.php
 navigateReferer: http://localhost/dvwa/login.php

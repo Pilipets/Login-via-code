@@ -20,7 +20,8 @@ namespace Syte_Hydra
             CancellationTokenSource token = new CancellationTokenSource();
             for (int i = 0; i < 10; i++)
             {
-                Task checkTask = new Task(() => Login(i,token));
+                int localI = i;
+                Task checkTask = new Task(() => Login(localI, token));
                 checkTask.Start();
     
                 tasksList.Add(checkTask);

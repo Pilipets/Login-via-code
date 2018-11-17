@@ -10,6 +10,7 @@ using System.Windows.Forms;
 
 namespace ConsoleLogin
 {
+    delegate void Status(string message);
     public partial class Form1 : Form
     {
         BruteCore core = null;
@@ -20,22 +21,28 @@ namespace ConsoleLogin
 
         private async void Form1_Load(object sender, EventArgs e)
         {
-            core = new BruteCore();
-            await Task.Run(() => core.ReadPagesFromFile(@"E:\Programming\C#\Practice\Login-via-code\ConsoleLogin\LoginPages\LoginPages.txt"));
-            //core.ReadPagesFromFile(@"E:\Programming\C#\Practice\Login-via-code\ConsoleLogin\LoginPages\LoginPages.txt");
+            core = new BruteCore(DisplayError);
+            await Task.Run(() => 
+            core.ReadPagesFromFile(@"E:\Programming\C#\Practice\Login-via-code\ConsoleLogin\LoginPages\LoginPages.txt"));
+            
             listBoxPages.DataSource = core.pages;
             listBoxPages.DisplayMember = "Name";
         }
 
-        void DisplayError(string message)
+        public void DisplayError(string message)
         {
-            Console.WriteLine(message);
+            Invoke((MethodInvoker)delegate
+            {
+                listBoxErrors.Items.Add(message);
+            });
+            
         }
-        private void btnTest_Click(object sender, EventArgs e)
+        private async void btnTest_Click(object sender, EventArgs e)
         {
             try
             {
-                core.TestPage(txtUsername.Text, txtPassword.Text);
+                bool valid = await Task.Run(() => 
+                core.TestPageAsync(txtUsername.Text, txtPassword.Text));
             }
             catch(Exception ex)
             {
@@ -45,10 +52,9 @@ namespace ConsoleLogin
 
         private void btnSaveProperties_Click(object sender, EventArgs e)
         {
-            LoginCore siteInfo = new LoginCore("default",txtIndicateString.Text, txtPostString.Text,txtPostUrl.Text,
+            LoginCore siteInfo = new LoginCore(DisplayError,"default",txtIndicateString.Text, txtPostString.Text,txtPostUrl.Text,
                 txtPostReferer.Text,txtNavigateUrl.Text,txtNavigateReferer.Text);
             core.AddPage(siteInfo);
-            Console.WriteLine(listBoxPages.Items.Count);
         }
 
         private void btnSendFilePath_Click(object sender, EventArgs e)
@@ -63,13 +69,19 @@ namespace ConsoleLogin
             }
         }
 
-        private void btnStartSendFromFile_Click(object sender, EventArgs e)
+        private async void btnStartSendFromFile_Click(object sender, EventArgs e)
         {
             if(core != null)
             {
                 btnStartSendFromFile.Enabled = false;
                 btnStopSendFromFile.Enabled = true;
-                core.StartBrute((int)frequencySeconds.Value,lblFilePath.Text);
+                btnSendFilePath.Enabled = false;
+
+                await Task.Run(() => core.StartBruteAsync((int)frequencySeconds.Value,
+                    lblFilePath.Text));
+                btnSendFilePath.Enabled = true;
+                btnStopSendFromFile.Enabled = false;
+                btnStartSendFromFile.Enabled = true;
             }
             else
             {

@@ -36,5 +36,12 @@ namespace ConsoleLogin
             //Console.WriteLine(msg.Substring(startIndex, stopIndex - startIndex));
             //return msg.Substring(startIndex, stopIndex - startIndex);
         }
+        public static string GetBetween2(string msg, string start, string stop)
+        {
+            int startIndex = msg.IndexOf(start) + start.Length;
+            int stopIndex = msg.IndexOf(stop, startIndex);
+
+            return msg.Substring(startIndex, stopIndex - startIndex);
+        }
     }
 }

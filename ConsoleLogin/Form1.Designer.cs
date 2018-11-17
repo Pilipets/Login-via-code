@@ -66,6 +66,7 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabelErrorCount = new System.Windows.Forms.ToolStripStatusLabel();
+            this.listBoxErrors = new System.Windows.Forms.ListBox();
             this.tabControl2.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -76,6 +77,7 @@
             this.tabPage5.SuspendLayout();
             this.tabControl3.SuspendLayout();
             this.tabPage7.SuspendLayout();
+            this.tabPage6.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -257,11 +259,6 @@
             this.frequencySeconds.Name = "frequencySeconds";
             this.frequencySeconds.Size = new System.Drawing.Size(69, 23);
             this.frequencySeconds.TabIndex = 14;
-            this.frequencySeconds.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
             // 
             // btnStopSendFromFile
             // 
@@ -504,6 +501,7 @@
             // 
             // tabPage6
             // 
+            this.tabPage6.Controls.Add(this.listBoxErrors);
             this.tabPage6.Location = new System.Drawing.Point(4, 25);
             this.tabPage6.Name = "tabPage6";
             this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
@@ -539,6 +537,15 @@
             this.toolStripStatusLabelErrorCount.Size = new System.Drawing.Size(166, 20);
             this.toolStripStatusLabelErrorCount.Text = "List of Errors Counter : 0";
             // 
+            // listBoxErrors
+            // 
+            this.listBoxErrors.FormattingEnabled = true;
+            this.listBoxErrors.ItemHeight = 16;
+            this.listBoxErrors.Location = new System.Drawing.Point(28, 29);
+            this.listBoxErrors.Name = "listBoxErrors";
+            this.listBoxErrors.Size = new System.Drawing.Size(634, 308);
+            this.listBoxErrors.TabIndex = 0;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -570,6 +577,7 @@
             this.tabPage5.PerformLayout();
             this.tabControl3.ResumeLayout(false);
             this.tabPage7.ResumeLayout(false);
+            this.tabPage6.ResumeLayout(false);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -616,6 +624,7 @@
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelErrorCount;
         private System.Windows.Forms.ListBox listBoxPages;
+        private System.Windows.Forms.ListBox listBoxErrors;
     }
 }
 

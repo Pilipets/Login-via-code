@@ -13,42 +13,46 @@ namespace ConsoleLogin
 {
     class BruteCore
     {
+        Status progressLog;
+        CancellationTokenSource cts = new CancellationTokenSource();
         LoginCore page;
+        string userName = "admin";
         public BindingList<LoginCore> pages;
         WebProxy defaultProxy;
         WebProxy currentProxy;
         bool keepSending;
 
-        public BruteCore()
+        public BruteCore(Status progress)
         {
+            progressLog = progress;
             defaultProxy = WebProxy.GetDefaultProxy();
             keepSending = false;
             pages = new BindingList<LoginCore>();
         }
-        public async void TestPage(string username, string password)
-        { 
-            await page.Login(username, password, currentProxy);
-        }
-        public async void StartBrute(int frequencySeconds,string passFile)
+        public Task<bool> TestPageAsync(string username, string password)
         {
+            return page.Login(username, password, currentProxy);
+        }
+        public async Task StartBruteAsync(int frequencySeconds,string passFile)
+        {
+            progressLog("Async Brute Started");
             int sleepTime = frequencySeconds * 1000;
             keepSending = true;
 
-            string _line;
             using (var classicStream = File.OpenRead(passFile))
             using (var streamReader = new StreamReader(classicStream))
             {
                 while (keepSending == true && streamReader.Peek() >= 0)
                 {
-                    _line = streamReader.ReadLine();
-                    if (await page.Login("tmp", _line, defaultProxy) == true)
+                    string _line = await streamReader.ReadLineAsync();
+                    if(await page.Login(userName, _line, defaultProxy))
                     {
                         keepSending = false;
-                        Console.WriteLine("tmp" + _line);
                     }
+                    Thread.Sleep(sleepTime);
                 }
             }
-            keepSending = false;
+            progressLog("Async Brute Finished");
         }
 
         public void AddPage(LoginCore siteInfo)
@@ -56,7 +60,7 @@ namespace ConsoleLogin
             pages.Add(siteInfo);
         }
 
-        public async void ReadPagesFromFile(string path)
+        public async Task ReadPagesFromFile(string path)
         {
             FileStream file = new FileStream(path, FileMode.Open, FileAccess.Read);
             var reader = new StreamReader(file);
@@ -64,7 +68,7 @@ namespace ConsoleLogin
             {
                 string _filePath = await reader.ReadLineAsync();
                 _filePath = string.Format("{0}\\Files\\{1}",path.Substring(0, path.LastIndexOf('\\')),_filePath);
-                LoginCore newPage = await LoginCore.InitializeFromFile(_filePath);
+                LoginCore newPage = await LoginCore.InitializeFromFile(progressLog, _filePath);
                 pages.Add(newPage);
             } while (reader.Peek() >= 0);
             reader.Dispose();
@@ -73,9 +77,13 @@ namespace ConsoleLogin
         }
         public void StopBrute()
         {
+            progressLog("Async brute was terminated");
             keepSending = false;
         }
 
-        internal void SetCurrentPage(LoginCore loginCore) => page = loginCore;
+        public void SetCurrentPage(LoginCore loginCore)
+        {
+            page = loginCore;
+        }
     }
 }

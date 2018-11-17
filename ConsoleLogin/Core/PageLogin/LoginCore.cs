@@ -12,23 +12,23 @@ namespace ConsoleLogin
 {
     class LoginCore:HttpMethods
     {
+        Status progressLog;
         public string Name { get; set; }
-        public bool isTokenRequired = true;
-        public Encoding pageEncoding { get; set; } = Encoding.UTF8;
-        public string indicateString { get; set; } = "<title>Ошибка входа - Все для студента</title>";
+        public bool isTokenRequired;
+        public Encoding pageEncoding { get; set; }
+        public string indicateString { get; set; }
 
         public string postPattern { get; set; }
-            = "ReturnUrl=%2F&AuthEmail='USER'&AuthPassword='PASS'&__SART='TOKEN'%3D";
 
-        public string postUrl { get; set; } = "https://www.twirpx.com/auth/login/";
+        public string postUrl { get; set; }
 
-        public string postReferer { get; set; } = "";
+        public string postReferer { get; set; }
 
-        public string navigateUrl { get; set; } = "https://www.twirpx.com/";
-        public string navigateReferer { get; set; } = "";
+        public string navigateUrl { get; set; }
+        public string navigateReferer { get; set; }
 
-        public LoginCore(string Name, string indicateString, string postPattern, string postUrl,
-            string postReferer, string navigateUrl, string navigateReferer)
+        public LoginCore(Status console, string Name, string indicateString, string postPattern, string postUrl,
+            string postReferer, string navigateUrl, string navigateReferer) : this(console)
         {
             this.Name = Name;
             this.postPattern = postPattern;
@@ -39,21 +39,22 @@ namespace ConsoleLogin
             this.navigateUrl = navigateUrl;
             this.navigateReferer = navigateReferer;
         }
-        public LoginCore()
+        public LoginCore(Status console)
         {
-
+            progressLog = console;
         }
-        public async Task<Tuple<string,CookieContainer>> Get(WebProxy proxy)
+        public Task<Tuple<string,CookieContainer>> Get(WebProxy proxy)
         {
-            return await base.Get(navigateUrl, navigateReferer, proxy);
+            return base.Get(navigateUrl, navigateReferer, proxy);
             
         }
-        public async Task<bool> Post(string postData, WebProxy proxy, CookieContainer cookies = null)
+        public Task<bool> Post(string postData, WebProxy proxy, CookieContainer cookies = null)
         {
-            return await base.Post(postData, postUrl, postReferer, proxy, pageEncoding, indicateString, cookies);
+            return base.Post(postData, postUrl, postReferer, proxy, pageEncoding, indicateString, cookies);
         }
         public async Task<bool> Login(string username, string password, WebProxy proxy)
         {
+            progressLog(string.Format("Checking: {0} <-> {1}", username, password));
             string postData = postPattern;
             postData = postData.Replace("'USER'", WebUtility.UrlEncode(username));
             postData = postData.Replace("'PASS'", WebUtility.UrlEncode(password));
@@ -63,20 +64,27 @@ namespace ConsoleLogin
                 string pageCode = getData.Item1;
 
                 CookieContainer myCookies = getData.Item2;
-                string  token = Parser.GetBetween(pageCode, "name=\"__SART\" type=\"hidden\" value=\"", "\" />");
+                //string  token = Parser.GetBetween(pageCode, "name=\"__SART\" type=\"hidden\" value=\"", "\" />");
+                string token = Parser.GetBetween2(pageCode, "name='user_token' value='", "' />");
                 postData = postData.Replace("'TOKEN'", token);
-                return await Post(postData, proxy, myCookies);
+                bool entered = await Post(postData, proxy, myCookies);
+                if(entered)
+                    progressLog(string.Format("Username: {0} <-> Password : {1}", username, password));
+                return entered;
             }
             else
             {
-                return await Post(postData, proxy);
+                bool entered = await Post(postData, proxy);
+                if (entered)
+                    progressLog(string.Format("Username: {0} <-> Password : {1}", username, password));
+                return entered;
             }
         }
-        public async static Task<LoginCore> InitializeFromFile(string path)
+        public async static Task<LoginCore> InitializeFromFile(Status console, string path)
         {
             var file = new FileStream(path, FileMode.Open, FileAccess.Read);
             var reader = new StreamReader(file);
-            LoginCore newPage = new LoginCore();
+            LoginCore newPage = new LoginCore(console);
             do
             {
                 string _line = await reader.ReadLineAsync();
