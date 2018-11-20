@@ -13,8 +13,8 @@ namespace ConsoleLogin
 {
     class BruteCore
     {
-        Status progressLog;
-        CancellationTokenSource cts = new CancellationTokenSource();
+        public event Status ChangeUI;
+
         LoginCore page;
         string userName = "admin";
         public BindingList<LoginCore> pages;
@@ -22,9 +22,10 @@ namespace ConsoleLogin
         WebProxy currentProxy;
         bool keepSending;
 
-        public BruteCore(Status progress)
+        public BruteCore(Status updaterUI)
         {
-            progressLog = progress;
+            ChangeUI += updaterUI;
+
             defaultProxy = WebProxy.GetDefaultProxy();
             keepSending = false;
             pages = new BindingList<LoginCore>();
@@ -35,7 +36,7 @@ namespace ConsoleLogin
         }
         public async Task StartBruteAsync(int frequencySeconds,string passFile)
         {
-            progressLog("Async Brute Started");
+            ChangeUI(this, new LoginEventArgs(EventType.Progress, "Async Brute Started"));
             int sleepTime = frequencySeconds * 1000;
             keepSending = true;
 
@@ -52,32 +53,42 @@ namespace ConsoleLogin
                     Thread.Sleep(sleepTime);
                 }
             }
-            progressLog("Async Brute Finished");
+            ChangeUI(this, new LoginEventArgs(EventType.Progress, "Async Brute Finished"));
         }
 
         public void AddPage(LoginCore siteInfo)
         {
             pages.Add(siteInfo);
+            ChangeUI(this, new LoginEventArgs(EventType.Progress, 
+                "Added new Page " + siteInfo.Name));
         }
 
         public async Task ReadPagesFromFile(string path)
         {
+            ChangeUI(this, new LoginEventArgs(EventType.Progress, 
+                "Started reading default pages from file" + path));
+
             FileStream file = new FileStream(path, FileMode.Open, FileAccess.Read);
             var reader = new StreamReader(file);
             do
             {
                 string _filePath = await reader.ReadLineAsync();
                 _filePath = string.Format("{0}\\Files\\{1}",path.Substring(0, path.LastIndexOf('\\')),_filePath);
-                LoginCore newPage = await LoginCore.InitializeFromFile(progressLog, _filePath);
+                LoginCore newPage = new LoginCore(ChangeUI);
+                await newPage.InitializeFromFile( _filePath);
                 pages.Add(newPage);
             } while (reader.Peek() >= 0);
             reader.Dispose();
             file.Dispose();
             page = pages[0];
+            ChangeUI(this, new LoginEventArgs(EventType.Progress,
+                "Finished reading default pages from file" + path));
+            ChangeUI(this, new LoginEventArgs(EventType.Progress,
+                page.Name + " has been set as default brute page"));
         }
         public void StopBrute()
         {
-            progressLog("Async brute was terminated");
+            ChangeUI(this, new LoginEventArgs(EventType.Progress, "Async brute was terminated"));
             keepSending = false;
         }
 

@@ -12,7 +12,8 @@ namespace ConsoleLogin
 {
     class LoginCore:HttpMethods
     {
-        Status progressLog;
+        public event Status ChangeUI;
+
         public string Name { get; set; }
         public bool isTokenRequired;
         public Encoding pageEncoding { get; set; }
@@ -27,8 +28,8 @@ namespace ConsoleLogin
         public string navigateUrl { get; set; }
         public string navigateReferer { get; set; }
 
-        public LoginCore(Status console, string Name, string indicateString, string postPattern, string postUrl,
-            string postReferer, string navigateUrl, string navigateReferer) : this(console)
+        public LoginCore(Status updaterUI, string Name, string indicateString, string postPattern, string postUrl,
+            string postReferer, string navigateUrl, string navigateReferer) : this(updaterUI)
         {
             this.Name = Name;
             this.postPattern = postPattern;
@@ -39,9 +40,9 @@ namespace ConsoleLogin
             this.navigateUrl = navigateUrl;
             this.navigateReferer = navigateReferer;
         }
-        public LoginCore(Status console)
+        public LoginCore(Status updaterUI)
         {
-            progressLog = console;
+            ChangeUI += updaterUI;
         }
         public Task<Tuple<string,CookieContainer>> Get(WebProxy proxy)
         {
@@ -54,37 +55,42 @@ namespace ConsoleLogin
         }
         public async Task<bool> Login(string username, string password, WebProxy proxy)
         {
-            progressLog(string.Format("Checking: {0} <-> {1}", username, password));
             string postData = postPattern;
             postData = postData.Replace("'USER'", WebUtility.UrlEncode(username));
             postData = postData.Replace("'PASS'", WebUtility.UrlEncode(password));
+
+            bool Authorized = false;
             if (isTokenRequired)
             {
                 var getData = await Get(proxy);
                 string pageCode = getData.Item1;
 
                 CookieContainer myCookies = getData.Item2;
-                //string  token = Parser.GetBetween(pageCode, "name=\"__SART\" type=\"hidden\" value=\"", "\" />");
-                string token = Parser.GetBetween2(pageCode, "name='user_token' value='", "' />");
-                postData = postData.Replace("'TOKEN'", token);
-                bool entered = await Post(postData, proxy, myCookies);
-                if(entered)
-                    progressLog(string.Format("Username: {0} <-> Password : {1}", username, password));
-                return entered;
+                string  token = Parser.GetBetween(pageCode, "name=\"__SART\" type=\"hidden\" value=\"", "\" />");
+                //string token = Parser.GetBetween2(pageCode, "name='user_token' value='", "' />");
+                postData = postData.Replace("'TOKEN'", WebUtility.UrlEncode(token));
+                Authorized = await Post(postData, proxy, myCookies);
             }
             else
             {
-                bool entered = await Post(postData, proxy);
-                if (entered)
-                    progressLog(string.Format("Username: {0} <-> Password : {1}", username, password));
-                return entered;
+                Authorized = await Post(postData, proxy);
             }
+            if (Authorized)
+            {
+                ChangeUI(this, new LoginEventArgs(EventType.Progress,
+                    string.Format("Found new Credentials: ({0} <-> {1})", username, password)));
+                ChangeUI(this, new LoginEventArgs(EventType.Credentials,
+                    string.Format("({0} <-> {1})", username, password)));
+            }
+            else
+                ChangeUI(this, new LoginEventArgs(EventType.Progress,
+                    string.Format("Invalid credentials: ({0} <-> {1})", username, password)));
+            return Authorized;
         }
-        public async static Task<LoginCore> InitializeFromFile(Status console, string path)
+        public async Task InitializeFromFile(string path)
         {
             var file = new FileStream(path, FileMode.Open, FileAccess.Read);
             var reader = new StreamReader(file);
-            LoginCore newPage = new LoginCore(console);
             do
             {
                 string _line = await reader.ReadLineAsync();
@@ -105,13 +111,13 @@ namespace ConsoleLogin
                         tmpEncoding = Encoding.UTF8;
                     else if (value == "ASCII")
                         tmpEncoding = Encoding.ASCII;
-                    typeof(LoginCore).GetProperty(property).SetValue(newPage, tmpEncoding);
+                    typeof(LoginCore).GetProperty(property).SetValue(this, tmpEncoding);
                 }
                 else
                 {
                     try
                     {
-                        typeof(LoginCore).GetProperty(property).SetValue(newPage, value);
+                        typeof(LoginCore).GetProperty(property).SetValue(this, value);
                     }
                     catch(Exception ex)
                     {
@@ -123,8 +129,8 @@ namespace ConsoleLogin
             } while (reader.Peek() >= 0);
             reader.Dispose();
             file.Dispose();
-            newPage.isTokenRequired = newPage.postPattern.Contains("'TOKEN'");
-            return newPage;
+            this.isTokenRequired = this.postPattern.Contains("'TOKEN'");
+            ChangeUI(this, new LoginEventArgs(EventType.Progress, "Added new page" + this.Name));
         }
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -10,7 +11,6 @@ using System.Windows.Forms;
 
 namespace ConsoleLogin
 {
-    delegate void Status(string message);
     public partial class Form1 : Form
     {
         BruteCore core = null;
@@ -21,7 +21,7 @@ namespace ConsoleLogin
 
         private async void Form1_Load(object sender, EventArgs e)
         {
-            core = new BruteCore(DisplayError);
+            core = new BruteCore(ChangeUI);
             await Task.Run(() => 
             core.ReadPagesFromFile(@"E:\Programming\C#\Practice\Login-via-code\ConsoleLogin\LoginPages\LoginPages.txt"));
             
@@ -29,13 +29,21 @@ namespace ConsoleLogin
             listBoxPages.DisplayMember = "Name";
         }
 
-        public void DisplayError(string message)
+        private void ChangeUI(object sender, LoginEventArgs e)
         {
+            string _message = string.Format("{0}  {1}", DateTime.Now.ToShortTimeString(), 
+                e.Message);
+            ListBox component = null;
+            if (e.Type == EventType.Error)
+                component = listBoxErrors;
+            else if (e.Type == EventType.Progress)
+                component = listBoxProgress;
+            else
+                component = listBoxFoundPass;
             Invoke((MethodInvoker)delegate
             {
-                listBoxErrors.Items.Add(message);
+                component.Items.Add(_message);
             });
-            
         }
         private async void btnTest_Click(object sender, EventArgs e)
         {
@@ -52,7 +60,8 @@ namespace ConsoleLogin
 
         private void btnSaveProperties_Click(object sender, EventArgs e)
         {
-            LoginCore siteInfo = new LoginCore(DisplayError,"default",txtIndicateString.Text, txtPostString.Text,txtPostUrl.Text,
+            LoginCore siteInfo = new LoginCore(ChangeUI,"default",
+                txtIndicateString.Text, txtPostString.Text,txtPostUrl.Text,
                 txtPostReferer.Text,txtNavigateUrl.Text,txtNavigateReferer.Text);
             core.AddPage(siteInfo);
         }
@@ -102,6 +111,11 @@ namespace ConsoleLogin
             int index = listBoxPages.SelectedIndex;
             if (index > -1)
                 core.SetCurrentPage(core.pages[index]);
+        }
+
+        private void btnGetFreeProxList_Click(object sender, EventArgs e)
+        {
+            Process.Start("https://free-proxy-list.net/");
         }
     }
 }
