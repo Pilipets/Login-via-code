@@ -22,11 +22,11 @@ namespace ConsoleLogin
         private async void Form1_Load(object sender, EventArgs e)
         {
             core = new BruteCore(ChangeUI);
-            await Task.Run(() => 
-            core.ReadPagesFromFile(@"E:\Programming\C#\Practice\Login-via-code\ConsoleLogin\LoginPages\LoginPages.txt"));
-            
-            listBoxPages.DataSource = core.pages;
-            listBoxPages.DisplayMember = "Name";
+
+            await Task.Run(() => core.ReadPagesFromFile
+            (@"E:\Programming\C#\Practice\Login-via-code\ConsoleLogin\LoginPages\LoginPages.txt"));
+
+            backgroundWorkerLogin.RunWorkerAsync();
         }
 
         private void ChangeUI(object sender, LoginEventArgs e)
@@ -87,7 +87,7 @@ namespace ConsoleLogin
                 btnSendFilePath.Enabled = false;
 
                 await Task.Run(() => core.StartBruteAsync((int)frequencySeconds.Value,
-                    lblFilePath.Text));
+                    txtUsername.Text, lblFilePath.Text));
                 btnSendFilePath.Enabled = true;
                 btnStopSendFromFile.Enabled = false;
                 btnStartSendFromFile.Enabled = true;
@@ -116,6 +116,18 @@ namespace ConsoleLogin
         private void btnGetFreeProxList_Click(object sender, EventArgs e)
         {
             Process.Start("https://free-proxy-list.net/");
+        }
+
+        private async void backgroundWorkerLogin_DoWork(object sender, DoWorkEventArgs e)
+        {
+            //core.ReadProxyFromFile();
+            Invoke((MethodInvoker)delegate
+            {
+                listBoxPages.DataSource = core.pages;
+                listBoxPages.DisplayMember = "Name";
+                //txtBProxy.Text = core.defaultProxy.Address.ToString();
+            });
+            
         }
     }
 }

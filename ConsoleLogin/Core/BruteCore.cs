@@ -13,28 +13,32 @@ namespace ConsoleLogin
 {
     class BruteCore
     {
-        public event Status ChangeUI;
+        event Status ChangeUI;
 
         LoginCore page;
-        string userName = "admin";
+        string defaultUserName = "admin";
         public BindingList<LoginCore> pages;
         WebProxy defaultProxy;
         WebProxy currentProxy;
+        BindingList<WebProxy> proxyList;
         bool keepSending;
+
 
         public BruteCore(Status updaterUI)
         {
             ChangeUI += updaterUI;
 
             defaultProxy = WebProxy.GetDefaultProxy();
+            Console.WriteLine(defaultProxy.Address);
             keepSending = false;
             pages = new BindingList<LoginCore>();
+            proxyList = new BindingList<WebProxy>();
         }
         public Task<bool> TestPageAsync(string username, string password)
         {
             return page.Login(username, password, currentProxy);
         }
-        public async Task StartBruteAsync(int frequencySeconds,string passFile)
+        public async Task StartBruteAsync(int frequencySeconds, string userName, string passFile)
         {
             ChangeUI(this, new LoginEventArgs(EventType.Progress, "Async Brute Started"));
             int sleepTime = frequencySeconds * 1000;

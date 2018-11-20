@@ -19,7 +19,7 @@ namespace ConsoleLogin
             req.ContentType = "application/x-www-form-urlencoded";
             req.UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36";
             req.Referer = referer;
-            //req.Proxy=
+            req.Proxy = proxy;
 
             HttpWebResponse resp = await req.GetResponseAsync() as HttpWebResponse;
             cookies.Add(resp.Cookies);
@@ -44,6 +44,7 @@ namespace ConsoleLogin
             req.Referer = referer;
             req.ContentType = "application/x-www-form-urlencoded";
             req.Accept = "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8";
+            req.Proxy = proxy;
 
             using (Stream postStream = await req.GetRequestStreamAsync())
             {

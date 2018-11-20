@@ -78,6 +78,11 @@
             this.btnGetFreeProxList = new System.Windows.Forms.Button();
             this.tabPage8 = new System.Windows.Forms.TabPage();
             this.listBoxFoundPass = new System.Windows.Forms.ListBox();
+            this.backgroundWorkerLogin = new System.ComponentModel.BackgroundWorker();
+            this.txtBProxy = new System.Windows.Forms.TextBox();
+            this.checkBoxProxyAuto = new System.Windows.Forms.CheckBox();
+            this.btnGoWithProxy = new System.Windows.Forms.Button();
+            this.label11 = new System.Windows.Forms.Label();
             this.tabControl2.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -104,7 +109,7 @@
             this.txtPostString.BackColor = System.Drawing.Color.Black;
             this.txtPostString.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtPostString.ForeColor = System.Drawing.Color.White;
-            this.txtPostString.Location = new System.Drawing.Point(188, 13);
+            this.txtPostString.Location = new System.Drawing.Point(188, 11);
             this.txtPostString.Margin = new System.Windows.Forms.Padding(4);
             this.txtPostString.Name = "txtPostString";
             this.txtPostString.Size = new System.Drawing.Size(761, 24);
@@ -116,7 +121,7 @@
             this.label3.AutoSize = true;
             this.label3.BackColor = System.Drawing.Color.Yellow;
             this.label3.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(93, 16);
+            this.label3.Location = new System.Drawing.Point(93, 14);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(87, 19);
@@ -129,7 +134,7 @@
             this.tabControl2.Controls.Add(this.tabPage4);
             this.tabControl2.Controls.Add(this.tabPage8);
             this.tabControl2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tabControl2.Location = new System.Drawing.Point(543, 90);
+            this.tabControl2.Location = new System.Drawing.Point(543, 114);
             this.tabControl2.Margin = new System.Windows.Forms.Padding(4);
             this.tabControl2.Name = "tabControl2";
             this.tabControl2.SelectedIndex = 0;
@@ -340,7 +345,7 @@
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage5);
-            this.tabControl1.Location = new System.Drawing.Point(47, 81);
+            this.tabControl1.Location = new System.Drawing.Point(47, 89);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(367, 143);
@@ -466,7 +471,7 @@
             this.txtIndicateString.BackColor = System.Drawing.Color.Black;
             this.txtIndicateString.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtIndicateString.ForeColor = System.Drawing.Color.White;
-            this.txtIndicateString.Location = new System.Drawing.Point(188, 49);
+            this.txtIndicateString.Location = new System.Drawing.Point(188, 43);
             this.txtIndicateString.Margin = new System.Windows.Forms.Padding(4);
             this.txtIndicateString.Name = "txtIndicateString";
             this.txtIndicateString.Size = new System.Drawing.Size(761, 24);
@@ -478,7 +483,7 @@
             this.label9.AutoSize = true;
             this.label9.BackColor = System.Drawing.Color.Yellow;
             this.label9.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(56, 52);
+            this.label9.Location = new System.Drawing.Point(57, 46);
             this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(124, 19);
@@ -491,7 +496,7 @@
             this.tabControl3.Controls.Add(this.tabPage6);
             this.tabControl3.Controls.Add(this.tabPage2);
             this.tabControl3.Controls.Add(this.tabPage13);
-            this.tabControl3.Location = new System.Drawing.Point(43, 231);
+            this.tabControl3.Location = new System.Drawing.Point(47, 255);
             this.tabControl3.Name = "tabControl3";
             this.tabControl3.SelectedIndex = 0;
             this.tabControl3.Size = new System.Drawing.Size(1109, 380);
@@ -683,7 +688,7 @@
             this.tabPage8.Margin = new System.Windows.Forms.Padding(4);
             this.tabPage8.Name = "tabPage8";
             this.tabPage8.Padding = new System.Windows.Forms.Padding(4);
-            this.tabPage8.Size = new System.Drawing.Size(605, 104);
+            this.tabPage8.Size = new System.Drawing.Size(605, 129);
             this.tabPage8.TabIndex = 3;
             this.tabPage8.Text = "Found Passwords";
             // 
@@ -700,11 +705,79 @@
             this.listBoxFoundPass.Size = new System.Drawing.Size(585, 94);
             this.listBoxFoundPass.TabIndex = 0;
             // 
+            // backgroundWorkerLogin
+            // 
+            this.backgroundWorkerLogin.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorkerLogin_DoWork);
+            // 
+            // txtBProxy
+            // 
+            this.txtBProxy.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtBProxy.BackColor = System.Drawing.Color.Black;
+            this.txtBProxy.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtBProxy.ForeColor = System.Drawing.Color.White;
+            this.txtBProxy.Location = new System.Drawing.Point(635, 75);
+            this.txtBProxy.Margin = new System.Windows.Forms.Padding(4);
+            this.txtBProxy.Name = "txtBProxy";
+            this.txtBProxy.Size = new System.Drawing.Size(191, 24);
+            this.txtBProxy.TabIndex = 26;
+            this.txtBProxy.Text = "51.38.71.101:8080";
+            // 
+            // checkBoxProxyAuto
+            // 
+            this.checkBoxProxyAuto.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.checkBoxProxyAuto.AutoSize = true;
+            this.checkBoxProxyAuto.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.checkBoxProxyAuto.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxProxyAuto.ForeColor = System.Drawing.Color.White;
+            this.checkBoxProxyAuto.Location = new System.Drawing.Point(993, 81);
+            this.checkBoxProxyAuto.Margin = new System.Windows.Forms.Padding(4);
+            this.checkBoxProxyAuto.Name = "checkBoxProxyAuto";
+            this.checkBoxProxyAuto.Size = new System.Drawing.Size(165, 22);
+            this.checkBoxProxyAuto.TabIndex = 25;
+            this.checkBoxProxyAuto.Text = "Auto Change Proxy";
+            this.checkBoxProxyAuto.UseVisualStyleBackColor = true;
+            // 
+            // btnGoWithProxy
+            // 
+            this.btnGoWithProxy.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnGoWithProxy.BackColor = System.Drawing.Color.Yellow;
+            this.btnGoWithProxy.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnGoWithProxy.FlatAppearance.BorderColor = System.Drawing.Color.Blue;
+            this.btnGoWithProxy.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Lime;
+            this.btnGoWithProxy.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gold;
+            this.btnGoWithProxy.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnGoWithProxy.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnGoWithProxy.Location = new System.Drawing.Point(835, 74);
+            this.btnGoWithProxy.Margin = new System.Windows.Forms.Padding(4);
+            this.btnGoWithProxy.Name = "btnGoWithProxy";
+            this.btnGoWithProxy.Size = new System.Drawing.Size(137, 28);
+            this.btnGoWithProxy.TabIndex = 24;
+            this.btnGoWithProxy.Text = "Go With Proxy";
+            this.btnGoWithProxy.UseVisualStyleBackColor = false;
+            // 
+            // label11
+            // 
+            this.label11.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label11.AutoSize = true;
+            this.label11.BackColor = System.Drawing.Color.Yellow;
+            this.label11.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.Location = new System.Drawing.Point(551, 77);
+            this.label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(71, 19);
+            this.label11.TabIndex = 23;
+            this.label11.Text = "Proxy : ";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(1182, 675);
+            this.Controls.Add(this.txtBProxy);
+            this.Controls.Add(this.checkBoxProxyAuto);
+            this.Controls.Add(this.btnGoWithProxy);
+            this.Controls.Add(this.label11);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.tabControl3);
             this.Controls.Add(this.label9);
@@ -796,6 +869,11 @@
         private System.Windows.Forms.Button btnGetFreeProxList;
         private System.Windows.Forms.TabPage tabPage8;
         private System.Windows.Forms.ListBox listBoxFoundPass;
+        private System.ComponentModel.BackgroundWorker backgroundWorkerLogin;
+        private System.Windows.Forms.TextBox txtBProxy;
+        private System.Windows.Forms.CheckBox checkBoxProxyAuto;
+        private System.Windows.Forms.Button btnGoWithProxy;
+        private System.Windows.Forms.Label label11;
     }
 }
 
