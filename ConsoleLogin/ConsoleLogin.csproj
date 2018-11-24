@@ -87,9 +87,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="LoginPages\LoginPages.txt" />
-    <Content Include="LoginPages\Files\Page1.txt" />
-    <Content Include="LoginPages\Files\Page2.txt" />
+    <Content Include="Data\LoginPages\LoginPages.txt" />
+    <Content Include="Data\LoginPages\Files\Page1.txt" />
+    <Content Include="Data\LoginPages\Files\Page2.txt" />
+    <Content Include="Data\proxyList.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

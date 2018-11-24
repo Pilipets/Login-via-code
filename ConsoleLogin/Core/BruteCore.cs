@@ -17,10 +17,12 @@ namespace ConsoleLogin
 
         LoginCore page;
         string defaultUserName = "admin";
+
         public BindingList<LoginCore> pages;
         WebProxy defaultProxy;
         WebProxy currentProxy;
-        BindingList<WebProxy> proxyList;
+
+        public BindingList<Tuple<string, int>> proxyList;
         bool keepSending;
 
 
@@ -28,11 +30,10 @@ namespace ConsoleLogin
         {
             ChangeUI += updaterUI;
 
-            defaultProxy = WebProxy.GetDefaultProxy();
-            Console.WriteLine(defaultProxy.Address);
+            defaultProxy = null;
             keepSending = false;
             pages = new BindingList<LoginCore>();
-            proxyList = new BindingList<WebProxy>();
+            proxyList = new BindingList<Tuple<string, int>>();
         }
         public Task<bool> TestPageAsync(string username, string password)
         {
@@ -71,7 +72,6 @@ namespace ConsoleLogin
         {
             ChangeUI(this, new LoginEventArgs(EventType.Progress, 
                 "Started reading default pages from file" + path));
-
             FileStream file = new FileStream(path, FileMode.Open, FileAccess.Read);
             var reader = new StreamReader(file);
             do
@@ -99,6 +99,25 @@ namespace ConsoleLogin
         public void SetCurrentPage(LoginCore loginCore)
         {
             page = loginCore;
+        }
+
+        public void ReadProxyFromFileAsync(string path)
+        {
+            ChangeUI(this, new LoginEventArgs(EventType.Progress,
+                "Started reading proxy from file" + path));
+
+            FileStream file = new FileStream(path, FileMode.Open, FileAccess.Read);
+            var reader = new StreamReader(file);
+            do
+            {
+                string proxy = reader.ReadLine();
+                int delimiter = proxy.IndexOf(' ');
+                string ip = proxy.Substring(0, delimiter);
+                int port = Convert.ToInt32(proxy.Substring(delimiter + 1));
+                proxyList.Add(Tuple.Create(ip,port));
+            } while (reader.Peek() >= 0);
+            reader.Dispose();
+            file.Dispose();
         }
     }
 }

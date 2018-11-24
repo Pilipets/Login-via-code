@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -9,15 +10,13 @@ using System.Threading.Tasks;
 namespace Syte_Hydra
 {
     delegate void ErrorMessage(string message);
+    delegate void UpdateUI(Action method);
     class Program
     {
         static int Tmp { get; set; } = 0;
         static void Main(string[] args)
         {
-            var instance1 = new TestClass(Display);
-            instance1.DoSomeWork();
-            //instance1.DoSomeWork2();
-            Console.WriteLine("Hello, buddy");
+
             Console.ReadKey();
         }
         static void Display(string message)
@@ -56,7 +55,36 @@ namespace Syte_Hydra
             //Console.WriteLine(msg.Substring(startIndex, stopIndex - startIndex));
             //return msg.Substring(startIndex, stopIndex - startIndex);
         }
+        static void ParallelStuff()
+        {
+            var instance1 = new TestClass(Display);
+            instance1.DoSomeWork();
+            //instance1.DoSomeWork2();
+            Console.WriteLine("Hello, buddy");
+        }
+        static void ProxyStuff()
+        {
+            IPHostEntry host = Dns.GetHostEntry(Dns.GetHostName());
+            string localIp = "?";
+            foreach (var ip in host.AddressList)
+                if (ip.AddressFamily.ToString() == "InterNetwork")
+                    localIp = ip.ToString();
 
+            WebRequest req = HttpWebRequest.Create("http://filmitorrent.org/tags/2018/");
+            req.Proxy = null;
+            WebResponse resp = null;
+            try
+            {
+                resp = req.GetResponse();
+            }
+            catch (WebException ex)
+            {
+                Console.WriteLine(ex.Status);
+            }
+            StreamReader answer = new StreamReader(resp.GetResponseStream());
+            var code = answer.ReadToEnd();
+            Console.WriteLine(code);
+        }
         static void LoginStuff()
         {
             System.Net.CookieContainer myCookies = new System.Net.CookieContainer();

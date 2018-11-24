@@ -45,6 +45,8 @@
             this.btnStopSendFromFile = new System.Windows.Forms.Button();
             this.btnStartSendFromFile = new System.Windows.Forms.Button();
             this.btnSendFilePath = new System.Windows.Forms.Button();
+            this.tabPage8 = new System.Windows.Forms.TabPage();
+            this.listBoxFoundPass = new System.Windows.Forms.ListBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.txtNavigateReferer = new System.Windows.Forms.TextBox();
@@ -64,9 +66,6 @@
             this.listBoxPages = new System.Windows.Forms.ListBox();
             this.tabPage6 = new System.Windows.Forms.TabPage();
             this.listBoxErrors = new System.Windows.Forms.ListBox();
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabelErrorCount = new System.Windows.Forms.ToolStripStatusLabel();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.listBoxProgress = new System.Windows.Forms.ListBox();
             this.tabPage13 = new System.Windows.Forms.TabPage();
@@ -76,30 +75,33 @@
             this.ProxyIP = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ProxyPort = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnGetFreeProxList = new System.Windows.Forms.Button();
-            this.tabPage8 = new System.Windows.Forms.TabPage();
-            this.listBoxFoundPass = new System.Windows.Forms.ListBox();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabelErrorCount = new System.Windows.Forms.ToolStripStatusLabel();
             this.backgroundWorkerLogin = new System.ComponentModel.BackgroundWorker();
             this.txtBProxy = new System.Windows.Forms.TextBox();
             this.checkBoxProxyAuto = new System.Windows.Forms.CheckBox();
             this.btnGoWithProxy = new System.Windows.Forms.Button();
             this.label11 = new System.Windows.Forms.Label();
+            this.lblProxyPath = new System.Windows.Forms.Label();
+            this.btnProxyFilePath = new System.Windows.Forms.Button();
             this.tabControl2.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.tabPage4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.frequencySeconds)).BeginInit();
+            this.tabPage8.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage5.SuspendLayout();
             this.tabControl3.SuspendLayout();
             this.tabPage7.SuspendLayout();
             this.tabPage6.SuspendLayout();
-            this.statusStrip1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tabPage13.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ChangeTimeProxyMins)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewProxy)).BeginInit();
-            this.tabPage8.SuspendLayout();
+            this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // txtPostString
@@ -341,6 +343,31 @@
             this.btnSendFilePath.UseVisualStyleBackColor = false;
             this.btnSendFilePath.Click += new System.EventHandler(this.btnSendFilePath_Click);
             // 
+            // tabPage8
+            // 
+            this.tabPage8.BackColor = System.Drawing.Color.Black;
+            this.tabPage8.Controls.Add(this.listBoxFoundPass);
+            this.tabPage8.Location = new System.Drawing.Point(4, 26);
+            this.tabPage8.Margin = new System.Windows.Forms.Padding(4);
+            this.tabPage8.Name = "tabPage8";
+            this.tabPage8.Padding = new System.Windows.Forms.Padding(4);
+            this.tabPage8.Size = new System.Drawing.Size(605, 104);
+            this.tabPage8.TabIndex = 3;
+            this.tabPage8.Text = "Found Passwords";
+            // 
+            // listBoxFoundPass
+            // 
+            this.listBoxFoundPass.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.listBoxFoundPass.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.listBoxFoundPass.FormattingEnabled = true;
+            this.listBoxFoundPass.ItemHeight = 18;
+            this.listBoxFoundPass.Location = new System.Drawing.Point(8, 2);
+            this.listBoxFoundPass.Margin = new System.Windows.Forms.Padding(4);
+            this.listBoxFoundPass.Name = "listBoxFoundPass";
+            this.listBoxFoundPass.Size = new System.Drawing.Size(585, 94);
+            this.listBoxFoundPass.TabIndex = 0;
+            // 
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
@@ -543,33 +570,6 @@
             this.listBoxErrors.Size = new System.Drawing.Size(634, 308);
             this.listBoxErrors.TabIndex = 0;
             // 
-            // statusStrip1
-            // 
-            this.statusStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripStatusLabel2,
-            this.toolStripStatusLabelErrorCount});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 650);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Padding = new System.Windows.Forms.Padding(1, 0, 19, 0);
-            this.statusStrip1.Size = new System.Drawing.Size(1182, 25);
-            this.statusStrip1.TabIndex = 22;
-            this.statusStrip1.Text = "statusStrip1";
-            // 
-            // toolStripStatusLabel2
-            // 
-            this.toolStripStatusLabel2.BackColor = System.Drawing.SystemColors.Control;
-            this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
-            this.toolStripStatusLabel2.Size = new System.Drawing.Size(69, 20);
-            this.toolStripStatusLabel2.Text = "       |       ";
-            // 
-            // toolStripStatusLabelErrorCount
-            // 
-            this.toolStripStatusLabelErrorCount.BackColor = System.Drawing.Color.Red;
-            this.toolStripStatusLabelErrorCount.Name = "toolStripStatusLabelErrorCount";
-            this.toolStripStatusLabelErrorCount.Size = new System.Drawing.Size(166, 20);
-            this.toolStripStatusLabelErrorCount.Text = "List of Errors Counter : 0";
-            // 
             // tabPage2
             // 
             this.tabPage2.Controls.Add(this.listBoxProgress);
@@ -592,7 +592,9 @@
             // 
             // tabPage13
             // 
+            this.tabPage13.Controls.Add(this.lblProxyPath);
             this.tabPage13.Controls.Add(this.label10);
+            this.tabPage13.Controls.Add(this.btnProxyFilePath);
             this.tabPage13.Controls.Add(this.ChangeTimeProxyMins);
             this.tabPage13.Controls.Add(this.dataGridViewProxy);
             this.tabPage13.Controls.Add(this.btnGetFreeProxList);
@@ -680,30 +682,32 @@
             this.btnGetFreeProxList.UseVisualStyleBackColor = false;
             this.btnGetFreeProxList.Click += new System.EventHandler(this.btnGetFreeProxList_Click);
             // 
-            // tabPage8
+            // statusStrip1
             // 
-            this.tabPage8.BackColor = System.Drawing.Color.Black;
-            this.tabPage8.Controls.Add(this.listBoxFoundPass);
-            this.tabPage8.Location = new System.Drawing.Point(4, 26);
-            this.tabPage8.Margin = new System.Windows.Forms.Padding(4);
-            this.tabPage8.Name = "tabPage8";
-            this.tabPage8.Padding = new System.Windows.Forms.Padding(4);
-            this.tabPage8.Size = new System.Drawing.Size(605, 129);
-            this.tabPage8.TabIndex = 3;
-            this.tabPage8.Text = "Found Passwords";
+            this.statusStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripStatusLabel2,
+            this.toolStripStatusLabelErrorCount});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 650);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Padding = new System.Windows.Forms.Padding(1, 0, 19, 0);
+            this.statusStrip1.Size = new System.Drawing.Size(1182, 25);
+            this.statusStrip1.TabIndex = 22;
+            this.statusStrip1.Text = "statusStrip1";
             // 
-            // listBoxFoundPass
+            // toolStripStatusLabel2
             // 
-            this.listBoxFoundPass.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.listBoxFoundPass.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.listBoxFoundPass.FormattingEnabled = true;
-            this.listBoxFoundPass.ItemHeight = 18;
-            this.listBoxFoundPass.Location = new System.Drawing.Point(8, 2);
-            this.listBoxFoundPass.Margin = new System.Windows.Forms.Padding(4);
-            this.listBoxFoundPass.Name = "listBoxFoundPass";
-            this.listBoxFoundPass.Size = new System.Drawing.Size(585, 94);
-            this.listBoxFoundPass.TabIndex = 0;
+            this.toolStripStatusLabel2.BackColor = System.Drawing.SystemColors.Control;
+            this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
+            this.toolStripStatusLabel2.Size = new System.Drawing.Size(69, 20);
+            this.toolStripStatusLabel2.Text = "       |       ";
+            // 
+            // toolStripStatusLabelErrorCount
+            // 
+            this.toolStripStatusLabelErrorCount.BackColor = System.Drawing.Color.Red;
+            this.toolStripStatusLabelErrorCount.Name = "toolStripStatusLabelErrorCount";
+            this.toolStripStatusLabelErrorCount.Size = new System.Drawing.Size(166, 20);
+            this.toolStripStatusLabelErrorCount.Text = "List of Errors Counter : 0";
             // 
             // backgroundWorkerLogin
             // 
@@ -768,6 +772,37 @@
             this.label11.TabIndex = 23;
             this.label11.Text = "Proxy : ";
             // 
+            // lblProxyPath
+            // 
+            this.lblProxyPath.AutoSize = true;
+            this.lblProxyPath.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblProxyPath.ForeColor = System.Drawing.Color.Black;
+            this.lblProxyPath.Location = new System.Drawing.Point(785, 176);
+            this.lblProxyPath.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblProxyPath.Name = "lblProxyPath";
+            this.lblProxyPath.Size = new System.Drawing.Size(32, 17);
+            this.lblProxyPath.TabIndex = 17;
+            this.lblProxyPath.Text = "? : ";
+            // 
+            // btnProxyFilePath
+            // 
+            this.btnProxyFilePath.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.btnProxyFilePath.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnProxyFilePath.FlatAppearance.BorderColor = System.Drawing.Color.Blue;
+            this.btnProxyFilePath.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Lime;
+            this.btnProxyFilePath.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DeepSkyBlue;
+            this.btnProxyFilePath.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnProxyFilePath.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnProxyFilePath.ForeColor = System.Drawing.Color.White;
+            this.btnProxyFilePath.Location = new System.Drawing.Point(626, 169);
+            this.btnProxyFilePath.Margin = new System.Windows.Forms.Padding(4);
+            this.btnProxyFilePath.Name = "btnProxyFilePath";
+            this.btnProxyFilePath.Size = new System.Drawing.Size(151, 28);
+            this.btnProxyFilePath.TabIndex = 16;
+            this.btnProxyFilePath.Text = "Read from File";
+            this.btnProxyFilePath.UseVisualStyleBackColor = false;
+            this.btnProxyFilePath.Click += new System.EventHandler(this.btnProxyFilePath_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -797,6 +832,7 @@
             this.tabPage4.ResumeLayout(false);
             this.tabPage4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.frequencySeconds)).EndInit();
+            this.tabPage8.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
@@ -805,14 +841,13 @@
             this.tabControl3.ResumeLayout(false);
             this.tabPage7.ResumeLayout(false);
             this.tabPage6.ResumeLayout(false);
-            this.statusStrip1.ResumeLayout(false);
-            this.statusStrip1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.tabPage13.ResumeLayout(false);
             this.tabPage13.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ChangeTimeProxyMins)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewProxy)).EndInit();
-            this.tabPage8.ResumeLayout(false);
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -863,7 +898,6 @@
         private System.Windows.Forms.TabPage tabPage13;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.NumericUpDown ChangeTimeProxyMins;
-        private System.Windows.Forms.DataGridView dataGridViewProxy;
         private System.Windows.Forms.DataGridViewTextBoxColumn ProxyIP;
         private System.Windows.Forms.DataGridViewTextBoxColumn ProxyPort;
         private System.Windows.Forms.Button btnGetFreeProxList;
@@ -874,6 +908,9 @@
         private System.Windows.Forms.CheckBox checkBoxProxyAuto;
         private System.Windows.Forms.Button btnGoWithProxy;
         private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label lblProxyPath;
+        private System.Windows.Forms.Button btnProxyFilePath;
+        private System.Windows.Forms.DataGridView dataGridViewProxy;
     }
 }
 
