@@ -16,7 +16,6 @@ namespace Syte_Hydra
         static int Tmp { get; set; } = 0;
         static void Main(string[] args)
         {
-
             Console.ReadKey();
         }
         static void Display(string message)

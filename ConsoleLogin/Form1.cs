@@ -11,7 +11,6 @@ using System.Windows.Forms;
 
 namespace ConsoleLogin
 {
-    delegate void UIInvoker(Action method);
     public partial class Form1 : Form
     {
         
@@ -24,17 +23,12 @@ namespace ConsoleLogin
         private async void Form1_Load(object sender, EventArgs e)
         {
             core = new BruteCore(ChangeUI);
-
             await Task.Run(() => core.ReadPagesFromFile
             (@"E:\Programming\C#\Practice\Login-via-code\ConsoleLogin\Data\LoginPages\LoginPages.txt"));
 
             backgroundWorkerLogin.RunWorkerAsync();
         }
 
-        private void UpdateData(Action method)
-        {
-            method.Invoke();
-        }
         private void ChangeUI(object sender, LoginEventArgs e)
         {
             string _message = string.Format("{0}  {1}", DateTime.Now.ToShortTimeString(), 
@@ -55,8 +49,7 @@ namespace ConsoleLogin
         {
             try
             {
-                bool valid = await Task.Run(() => 
-                core.TestPageAsync(txtUsername.Text, txtPassword.Text));
+                await Task.Run(() => core.TestPageAsync(txtUsername.Text, txtPassword.Text));
             }
             catch(Exception ex)
             {
@@ -131,23 +124,49 @@ namespace ConsoleLogin
             {
                 listBoxPages.DataSource = core.pages;
                 listBoxPages.DisplayMember = "Name";
-                dataGridViewProxy.AutoGenerateColumns = false;
-                dataGridViewProxy.DataSource = core.proxyList;
-                dataGridViewProxy.Columns[0].DataPropertyName = "Item1";
-                dataGridViewProxy.Columns[1].DataPropertyName = "Item2";
             });
             
         }
 
-        private void btnProxyFilePath_Click(object sender, EventArgs e)
+        private async void btnProxyFilePath_Click(object sender, EventArgs e)
         {
+            btnClearProxyList_Click(null,null);
             OpenFileDialog ofd = new OpenFileDialog();
             ofd.Filter = "text files (*.txt)|*.txt|Richtext files (*.rtf)|*.rtf";
 
             if (ofd.ShowDialog() == DialogResult.OK)
             {
                 lblProxyPath.Text = ofd.FileName;
-                Task.Run(() => core.ReadProxyFromFileAsync(ofd.FileName));
+                await Task.Run(() => core.ReadProxyFromFileAsync(ofd.FileName));
+
+                dataGridViewProxy.AutoGenerateColumns = false;
+                dataGridViewProxy.DataSource = core.proxyList;
+                dataGridViewProxy.Columns[0].DataPropertyName = "Item1";
+                dataGridViewProxy.Columns[1].DataPropertyName = "Item2";
+            }
+        }
+
+        private void btnClearProxyList_Click(object sender, EventArgs e)
+        {
+            dataGridViewProxy.DataSource = null;
+            core.proxyList.Clear();
+            lblProxyPath.Text = "";
+        }
+
+        private void checkBoxWithProxy_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBoxWithProxy.Checked)
+            {
+                ChangeUI(this, new LoginEventArgs(EventType.Progress,
+                    "You will login with proxy"));
+                core.goWithProxy = true;
+                core.SetCertainProxy(txtBProxy.Text);
+            }
+            else
+            {
+                core.goWithProxy = false;
+                ChangeUI(this, new LoginEventArgs(EventType.Progress,
+                    "You will login without proxy"));
             }
         }
     }

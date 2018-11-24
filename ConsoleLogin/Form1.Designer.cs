@@ -81,10 +81,11 @@
             this.backgroundWorkerLogin = new System.ComponentModel.BackgroundWorker();
             this.txtBProxy = new System.Windows.Forms.TextBox();
             this.checkBoxProxyAuto = new System.Windows.Forms.CheckBox();
-            this.btnGoWithProxy = new System.Windows.Forms.Button();
             this.label11 = new System.Windows.Forms.Label();
             this.lblProxyPath = new System.Windows.Forms.Label();
             this.btnProxyFilePath = new System.Windows.Forms.Button();
+            this.btnClearProxyList = new System.Windows.Forms.Button();
+            this.checkBoxWithProxy = new System.Windows.Forms.CheckBox();
             this.tabControl2.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -592,6 +593,7 @@
             // 
             // tabPage13
             // 
+            this.tabPage13.Controls.Add(this.btnClearProxyList);
             this.tabPage13.Controls.Add(this.lblProxyPath);
             this.tabPage13.Controls.Add(this.label10);
             this.tabPage13.Controls.Add(this.btnProxyFilePath);
@@ -673,7 +675,7 @@
             this.btnGetFreeProxList.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnGetFreeProxList.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnGetFreeProxList.ForeColor = System.Drawing.Color.White;
-            this.btnGetFreeProxList.Location = new System.Drawing.Point(626, 100);
+            this.btnGetFreeProxList.Location = new System.Drawing.Point(630, 100);
             this.btnGetFreeProxList.Margin = new System.Windows.Forms.Padding(4);
             this.btnGetFreeProxList.Name = "btnGetFreeProxList";
             this.btnGetFreeProxList.Size = new System.Drawing.Size(356, 42);
@@ -733,31 +735,13 @@
             this.checkBoxProxyAuto.Cursor = System.Windows.Forms.Cursors.Hand;
             this.checkBoxProxyAuto.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxProxyAuto.ForeColor = System.Drawing.Color.White;
-            this.checkBoxProxyAuto.Location = new System.Drawing.Point(993, 81);
+            this.checkBoxProxyAuto.Location = new System.Drawing.Point(991, 77);
             this.checkBoxProxyAuto.Margin = new System.Windows.Forms.Padding(4);
             this.checkBoxProxyAuto.Name = "checkBoxProxyAuto";
             this.checkBoxProxyAuto.Size = new System.Drawing.Size(165, 22);
             this.checkBoxProxyAuto.TabIndex = 25;
             this.checkBoxProxyAuto.Text = "Auto Change Proxy";
             this.checkBoxProxyAuto.UseVisualStyleBackColor = true;
-            // 
-            // btnGoWithProxy
-            // 
-            this.btnGoWithProxy.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnGoWithProxy.BackColor = System.Drawing.Color.Yellow;
-            this.btnGoWithProxy.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnGoWithProxy.FlatAppearance.BorderColor = System.Drawing.Color.Blue;
-            this.btnGoWithProxy.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Lime;
-            this.btnGoWithProxy.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gold;
-            this.btnGoWithProxy.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnGoWithProxy.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnGoWithProxy.Location = new System.Drawing.Point(835, 74);
-            this.btnGoWithProxy.Margin = new System.Windows.Forms.Padding(4);
-            this.btnGoWithProxy.Name = "btnGoWithProxy";
-            this.btnGoWithProxy.Size = new System.Drawing.Size(137, 28);
-            this.btnGoWithProxy.TabIndex = 24;
-            this.btnGoWithProxy.Text = "Go With Proxy";
-            this.btnGoWithProxy.UseVisualStyleBackColor = false;
             // 
             // label11
             // 
@@ -777,7 +761,7 @@
             this.lblProxyPath.AutoSize = true;
             this.lblProxyPath.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblProxyPath.ForeColor = System.Drawing.Color.Black;
-            this.lblProxyPath.Location = new System.Drawing.Point(785, 176);
+            this.lblProxyPath.Location = new System.Drawing.Point(627, 71);
             this.lblProxyPath.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblProxyPath.Name = "lblProxyPath";
             this.lblProxyPath.Size = new System.Drawing.Size(32, 17);
@@ -794,7 +778,7 @@
             this.btnProxyFilePath.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnProxyFilePath.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnProxyFilePath.ForeColor = System.Drawing.Color.White;
-            this.btnProxyFilePath.Location = new System.Drawing.Point(626, 169);
+            this.btnProxyFilePath.Location = new System.Drawing.Point(468, 64);
             this.btnProxyFilePath.Margin = new System.Windows.Forms.Padding(4);
             this.btnProxyFilePath.Name = "btnProxyFilePath";
             this.btnProxyFilePath.Size = new System.Drawing.Size(151, 28);
@@ -803,15 +787,51 @@
             this.btnProxyFilePath.UseVisualStyleBackColor = false;
             this.btnProxyFilePath.Click += new System.EventHandler(this.btnProxyFilePath_Click);
             // 
+            // btnClearProxyList
+            // 
+            this.btnClearProxyList.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.btnClearProxyList.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnClearProxyList.FlatAppearance.BorderColor = System.Drawing.Color.Blue;
+            this.btnClearProxyList.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Lime;
+            this.btnClearProxyList.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DeepSkyBlue;
+            this.btnClearProxyList.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnClearProxyList.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnClearProxyList.ForeColor = System.Drawing.Color.White;
+            this.btnClearProxyList.Location = new System.Drawing.Point(468, 107);
+            this.btnClearProxyList.Margin = new System.Windows.Forms.Padding(4);
+            this.btnClearProxyList.Name = "btnClearProxyList";
+            this.btnClearProxyList.Size = new System.Drawing.Size(151, 28);
+            this.btnClearProxyList.TabIndex = 20;
+            this.btnClearProxyList.Text = "Cleal Proxy List";
+            this.btnClearProxyList.UseVisualStyleBackColor = false;
+            this.btnClearProxyList.Click += new System.EventHandler(this.btnClearProxyList_Click);
+            // 
+            // checkBoxWithProxy
+            // 
+            this.checkBoxWithProxy.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.checkBoxWithProxy.AutoSize = true;
+            this.checkBoxWithProxy.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.checkBoxWithProxy.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxWithProxy.ForeColor = System.Drawing.Color.White;
+            this.checkBoxWithProxy.Location = new System.Drawing.Point(850, 78);
+            this.checkBoxWithProxy.Margin = new System.Windows.Forms.Padding(4);
+            this.checkBoxWithProxy.Name = "checkBoxWithProxy";
+            this.checkBoxWithProxy.Size = new System.Drawing.Size(130, 22);
+            this.checkBoxWithProxy.TabIndex = 27;
+            this.checkBoxWithProxy.Text = "Go With Proxy";
+            this.checkBoxWithProxy.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.checkBoxWithProxy.UseVisualStyleBackColor = true;
+            this.checkBoxWithProxy.CheckedChanged += new System.EventHandler(this.checkBoxWithProxy_CheckedChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(1182, 675);
+            this.Controls.Add(this.checkBoxWithProxy);
             this.Controls.Add(this.txtBProxy);
             this.Controls.Add(this.checkBoxProxyAuto);
-            this.Controls.Add(this.btnGoWithProxy);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.tabControl3);
@@ -906,11 +926,12 @@
         private System.ComponentModel.BackgroundWorker backgroundWorkerLogin;
         private System.Windows.Forms.TextBox txtBProxy;
         private System.Windows.Forms.CheckBox checkBoxProxyAuto;
-        private System.Windows.Forms.Button btnGoWithProxy;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label lblProxyPath;
         private System.Windows.Forms.Button btnProxyFilePath;
         private System.Windows.Forms.DataGridView dataGridViewProxy;
+        private System.Windows.Forms.Button btnClearProxyList;
+        private System.Windows.Forms.CheckBox checkBoxWithProxy;
     }
 }
 

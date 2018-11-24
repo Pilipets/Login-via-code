@@ -15,12 +15,16 @@ namespace ConsoleLogin
     {
         event Status ChangeUI;
 
+
         LoginCore page;
         string defaultUserName = "admin";
 
         public BindingList<LoginCore> pages;
-        WebProxy defaultProxy;
-        WebProxy currentProxy;
+
+        WebProxy certainProxy;
+
+        public bool goWithProxy { get; set; } = false;
+        public bool autoChangeProxy { get; set; } = true;
 
         public BindingList<Tuple<string, int>> proxyList;
         bool keepSending;
@@ -30,14 +34,13 @@ namespace ConsoleLogin
         {
             ChangeUI += updaterUI;
 
-            defaultProxy = null;
             keepSending = false;
             pages = new BindingList<LoginCore>();
             proxyList = new BindingList<Tuple<string, int>>();
         }
-        public Task<bool> TestPageAsync(string username, string password)
+        public Task TestPageAsync(string username, string password)
         {
-            return page.Login(username, password, currentProxy);
+            return page.Login(username, password, certainProxy);
         }
         public async Task StartBruteAsync(int frequencySeconds, string userName, string passFile)
         {
@@ -51,7 +54,7 @@ namespace ConsoleLogin
                 while (keepSending == true && streamReader.Peek() >= 0)
                 {
                     string _line = await streamReader.ReadLineAsync();
-                    if(await page.Login(userName, _line, defaultProxy))
+                    if(await LoginViaCore(defaultUserName,_line))
                     {
                         keepSending = false;
                     }
@@ -59,6 +62,31 @@ namespace ConsoleLogin
                 }
             }
             ChangeUI(this, new LoginEventArgs(EventType.Progress, "Async Brute Finished"));
+        }
+        private Task<bool> LoginViaCore(string userName, string password)
+        {
+            WebProxy myProxy = IdentifyProxySettings();
+            return page.Login(userName, password, certainProxy);
+        }
+        private WebProxy IdentifyProxySettings()
+        {
+            if (autoChangeProxy)
+            {
+                var rand = new Random();
+                int counter = rand.Next(0, proxyList.Count);
+                WebProxy currentProxy = 
+                    new WebProxy(proxyList[counter].Item1, proxyList[counter].Item2);
+                currentProxy.BypassProxyOnLocal = true;
+                return currentProxy;
+            }
+            else if (goWithProxy)
+            {
+                return certainProxy;
+            }
+            else
+            {
+                return null;
+            }
         }
 
         public void AddPage(LoginCore siteInfo)
@@ -101,7 +129,7 @@ namespace ConsoleLogin
             page = loginCore;
         }
 
-        public void ReadProxyFromFileAsync(string path)
+        public async Task ReadProxyFromFileAsync(string path)
         {
             ChangeUI(this, new LoginEventArgs(EventType.Progress,
                 "Started reading proxy from file" + path));
@@ -110,14 +138,24 @@ namespace ConsoleLogin
             var reader = new StreamReader(file);
             do
             {
-                string proxy = reader.ReadLine();
+                string proxy = await reader.ReadLineAsync();
                 int delimiter = proxy.IndexOf(' ');
                 string ip = proxy.Substring(0, delimiter);
                 int port = Convert.ToInt32(proxy.Substring(delimiter + 1));
-                proxyList.Add(Tuple.Create(ip,port));
+                var couple = Tuple.Create(ip, port);
+                proxyList.Add(couple);
             } while (reader.Peek() >= 0);
             reader.Dispose();
             file.Dispose();
+        }
+
+        public void SetCertainProxy(string proxy)
+        {
+            int delimiter = proxy.IndexOf(':');
+            string ip = proxy.Substring(0, delimiter);
+            int port = Convert.ToInt32(proxy.Substring(delimiter + 1));
+            certainProxy = new WebProxy(ip, port);
+            certainProxy.BypassProxyOnLocal = true;
         }
     }
 }
