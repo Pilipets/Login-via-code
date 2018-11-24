@@ -24,7 +24,7 @@ namespace ConsoleLogin
         WebProxy certainProxy;
 
         public bool goWithProxy { get; set; } = false;
-        public bool autoChangeProxy { get; set; } = true;
+        public bool autoChangeProxy { get; set; } = false;
 
         public BindingList<Tuple<string, int>> proxyList;
         bool keepSending;
@@ -40,7 +40,7 @@ namespace ConsoleLogin
         }
         public Task TestPageAsync(string username, string password)
         {
-            return page.Login(username, password, certainProxy);
+            return LoginViaCore(username, password);
         }
         public async Task StartBruteAsync(int frequencySeconds, string userName, string passFile)
         {
@@ -66,27 +66,30 @@ namespace ConsoleLogin
         private Task<bool> LoginViaCore(string userName, string password)
         {
             WebProxy myProxy = IdentifyProxySettings();
-            return page.Login(userName, password, certainProxy);
+            return page.Login(userName, password, myProxy);
         }
         private WebProxy IdentifyProxySettings()
         {
-            if (autoChangeProxy)
+            if (goWithProxy && autoChangeProxy)
             {
                 var rand = new Random();
-                int counter = rand.Next(0, proxyList.Count);
-                WebProxy currentProxy = 
-                    new WebProxy(proxyList[counter].Item1, proxyList[counter].Item2);
-                currentProxy.BypassProxyOnLocal = true;
-                return currentProxy;
+                try
+                {
+                    int counter = rand.Next(0, proxyList.Count);
+                    WebProxy currentProxy =
+                        new WebProxy(proxyList[counter].Item1, proxyList[counter].Item2);
+                    currentProxy.BypassProxyOnLocal = true;
+                    return currentProxy;
+                }
+                catch(IndexOutOfRangeException)
+                {
+                    throw new Exception("Set proxyList first to enable auto-change proxy settings");
+                }
             }
             else if (goWithProxy)
-            {
                 return certainProxy;
-            }
             else
-            {
                 return null;
-            }
         }
 
         public void AddPage(LoginCore siteInfo)
@@ -105,9 +108,16 @@ namespace ConsoleLogin
             do
             {
                 string _filePath = await reader.ReadLineAsync();
-                _filePath = string.Format("{0}\\Files\\{1}",path.Substring(0, path.LastIndexOf('\\')),_filePath);
+                try
+                {
+                    _filePath = string.Format("{0}\\Files\\{1}", path.Substring(0, path.LastIndexOf('\\')), _filePath);
+                }
+                catch(Exception)
+                {
+                    throw new Exception("Path for login page file was incorrect");
+                }
                 LoginCore newPage = new LoginCore(ChangeUI);
-                await newPage.InitializeFromFile( _filePath);
+                await newPage.InitializeFromFile(_filePath);
                 pages.Add(newPage);
             } while (reader.Peek() >= 0);
             reader.Dispose();
@@ -127,6 +137,8 @@ namespace ConsoleLogin
         public void SetCurrentPage(LoginCore loginCore)
         {
             page = loginCore;
+            ChangeUI(this, new LoginEventArgs(EventType.Progress,
+                "Set current Login Page as" + loginCore.Name));
         }
 
         public async Task ReadProxyFromFileAsync(string path)
@@ -138,24 +150,40 @@ namespace ConsoleLogin
             var reader = new StreamReader(file);
             do
             {
-                string proxy = await reader.ReadLineAsync();
-                int delimiter = proxy.IndexOf(' ');
-                string ip = proxy.Substring(0, delimiter);
-                int port = Convert.ToInt32(proxy.Substring(delimiter + 1));
-                var couple = Tuple.Create(ip, port);
-                proxyList.Add(couple);
+                try
+                {
+                    string proxy = await reader.ReadLineAsync();
+                    int delimiter = proxy.IndexOf(' ');
+                    string ip = proxy.Substring(0, delimiter);
+                    int port = Convert.ToInt32(proxy.Substring(delimiter + 1));
+                    var couple = Tuple.Create(ip, port);
+                    proxyList.Add(couple);
+                }
+                catch(IndexOutOfRangeException)
+                {
+                    throw new Exception("File format for proxy list is incorrect " + path);
+                }
             } while (reader.Peek() >= 0);
             reader.Dispose();
             file.Dispose();
+            ChangeUI(this, new LoginEventArgs(EventType.Progress,
+                "Finished reading proxy from file" + path));
         }
 
         public void SetCertainProxy(string proxy)
         {
-            int delimiter = proxy.IndexOf(':');
-            string ip = proxy.Substring(0, delimiter);
-            int port = Convert.ToInt32(proxy.Substring(delimiter + 1));
-            certainProxy = new WebProxy(ip, port);
-            certainProxy.BypassProxyOnLocal = true;
+            try
+            {
+                int delimiter = proxy.IndexOf(':');
+                string ip = proxy.Substring(0, delimiter);
+                int port = Convert.ToInt32(proxy.Substring(delimiter + 1));
+                certainProxy = new WebProxy(ip, port);
+                certainProxy.BypassProxyOnLocal = true;
+            }
+            catch(IndexOutOfRangeException)
+            {
+                throw new Exception("Presented format of proxy is incorrect " + proxy);
+            }
         }
     }
 }

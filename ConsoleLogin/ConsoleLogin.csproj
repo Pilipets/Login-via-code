@@ -52,6 +52,7 @@
     <Compile Include="Core\PageLogin\LoginCore.cs" />
     <Compile Include="Core\Parser\Parser.cs" />
     <Compile Include="Events\LoginEventArgs.cs" />
+    <Compile Include="Events\MyException.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>

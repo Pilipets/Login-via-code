@@ -15,6 +15,7 @@ namespace ConsoleLogin
     {
         
         BruteCore core = null;
+        int ErrorsNumber = 0;
         public Form1()
         {
             InitializeComponent();
@@ -23,9 +24,16 @@ namespace ConsoleLogin
         private async void Form1_Load(object sender, EventArgs e)
         {
             core = new BruteCore(ChangeUI);
-            await Task.Run(() => core.ReadPagesFromFile
-            (@"E:\Programming\C#\Practice\Login-via-code\ConsoleLogin\Data\LoginPages\LoginPages.txt"));
-
+            try
+            {
+                await Task.Run(() => core.ReadPagesFromFile
+                (@"E:\Programming\C#\Practice\Login-via-code\ConsoleLogin\Data\LoginPages\LoginPages.txt"));
+            }
+            catch(Exception ex)
+            {
+                ChangeUI(null, new LoginEventArgs(EventType.Error,
+                    ex.Message));
+            }
             backgroundWorkerLogin.RunWorkerAsync();
         }
 
@@ -35,10 +43,15 @@ namespace ConsoleLogin
                 e.Message);
             ListBox component = null;
             if (e.Type == EventType.Error)
+            {
                 component = listBoxErrors;
+                ErrorsNumber++;
+                toolStripStatusLabelErrorCount.Text =
+                    string.Format("List of Errors Counter: {0}", ErrorsNumber);
+            }
             else if (e.Type == EventType.Progress)
                 component = listBoxProgress;
-            else
+            else if (e.Type == EventType.Credentials)
                 component = listBoxFoundPass;
             Invoke((MethodInvoker)delegate
             {
@@ -53,7 +66,8 @@ namespace ConsoleLogin
             }
             catch(Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                ChangeUI(null, new LoginEventArgs(EventType.Error,
+                    ex.Message));
             }
         }
 
@@ -79,7 +93,7 @@ namespace ConsoleLogin
 
         private async void btnStartSendFromFile_Click(object sender, EventArgs e)
         {
-            if(core != null)
+            try
             {
                 btnStartSendFromFile.Enabled = false;
                 btnStopSendFromFile.Enabled = true;
@@ -91,9 +105,10 @@ namespace ConsoleLogin
                 btnStopSendFromFile.Enabled = false;
                 btnStartSendFromFile.Enabled = true;
             }
-            else
+            catch(Exception ex)
             {
-                MessageBox.Show("You need to add login page first");
+                ChangeUI(null, new LoginEventArgs(EventType.Error,
+                    ex.Message));
             }
         }
 
@@ -137,7 +152,15 @@ namespace ConsoleLogin
             if (ofd.ShowDialog() == DialogResult.OK)
             {
                 lblProxyPath.Text = ofd.FileName;
-                await Task.Run(() => core.ReadProxyFromFileAsync(ofd.FileName));
+                try
+                {
+                    await Task.Run(() => core.ReadProxyFromFileAsync(ofd.FileName));
+                }
+                catch(Exception ex)
+                {
+                    ChangeUI(null, new LoginEventArgs(EventType.Error,
+                        ex.Message));
+                }
 
                 dataGridViewProxy.AutoGenerateColumns = false;
                 dataGridViewProxy.DataSource = core.proxyList;
@@ -151,16 +174,18 @@ namespace ConsoleLogin
             dataGridViewProxy.DataSource = null;
             core.proxyList.Clear();
             lblProxyPath.Text = "";
+            ChangeUI(this, new LoginEventArgs(EventType.Progress,
+                "Proxy list has been succesfully cleared"));
         }
 
         private void checkBoxWithProxy_CheckedChanged(object sender, EventArgs e)
         {
             if (checkBoxWithProxy.Checked)
             {
-                ChangeUI(this, new LoginEventArgs(EventType.Progress,
-                    "You will login with proxy"));
                 core.goWithProxy = true;
                 core.SetCertainProxy(txtBProxy.Text);
+                ChangeUI(this, new LoginEventArgs(EventType.Progress,
+                    "You will login with proxy " + txtBProxy.Text));
             }
             else
             {

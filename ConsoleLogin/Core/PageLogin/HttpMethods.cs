@@ -21,16 +21,23 @@ namespace ConsoleLogin
             req.Referer = referer;
             req.Proxy = proxy;
 
-            HttpWebResponse resp = await req.GetResponseAsync() as HttpWebResponse;
-            cookies.Add(resp.Cookies);
-
-            string pageSrc;
-            using (StreamReader sr = new StreamReader(resp.GetResponseStream()))
+            try
             {
-                pageSrc = await sr.ReadToEndAsync();
-            }
+                HttpWebResponse resp = await req.GetResponseAsync() as HttpWebResponse;
+                cookies.Add(resp.Cookies);
 
-            return Tuple.Create(WebUtility.HtmlDecode(pageSrc), cookies);
+                string pageSrc;
+                using (StreamReader sr = new StreamReader(resp.GetResponseStream()))
+                {
+                    pageSrc = await sr.ReadToEndAsync();
+                }
+
+                return Tuple.Create(WebUtility.HtmlDecode(pageSrc), cookies);
+            }
+            catch(WebException ex)
+            {
+                throw new Exception(ex.Message + ex.Status);
+            }
         }
 
         protected async Task<bool> Post(string postData, string url, string referer, WebProxy proxy, 
@@ -51,16 +58,22 @@ namespace ConsoleLogin
                 byte[] postBytes = encoding.GetBytes(postData);
                 await postStream.WriteAsync(postBytes, 0, postBytes.Length);
             }
-
-            HttpWebResponse resp = await req.GetResponseAsync() as HttpWebResponse;
-            cookies.Add(resp.Cookies);
-            string pageSrc = "";
-            using (StreamReader sr = new StreamReader(resp.GetResponseStream()))
+            try
             {
-                pageSrc = await sr.ReadToEndAsync();
-            }
+                HttpWebResponse resp = await req.GetResponseAsync() as HttpWebResponse;
+                cookies.Add(resp.Cookies);
+                string pageSrc = "";
+                using (StreamReader sr = new StreamReader(resp.GetResponseStream()))
+                {
+                    pageSrc = await sr.ReadToEndAsync();
+                }
 
-            return (!pageSrc.Contains(indicateString));
+                return (!pageSrc.Contains(indicateString));
+            }
+            catch(WebException ex)
+            {
+                throw new Exception(ex.Message + ex.Status);
+            }
         }
     }
 }

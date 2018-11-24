@@ -12,7 +12,7 @@ namespace ConsoleLogin
 {
     class LoginCore:HttpMethods
     {
-        public event Status ChangeUI;
+        event Status ChangeUI;
 
         public string Name { get; set; }
         public bool isTokenRequired;
@@ -66,8 +66,8 @@ namespace ConsoleLogin
                 string pageCode = getData.Item1;
 
                 CookieContainer myCookies = getData.Item2;
-                string  token = Parser.GetBetween(pageCode, "name=\"__SART\" type=\"hidden\" value=\"", "\" />");
-                //string token = Parser.GetBetween2(pageCode, "name='user_token' value='", "' />");
+                //string  token = Parser.GetBetween(pageCode, "name=\"__SART\" type=\"hidden\" value=\"", "\" />");
+                string token = Parser.GetBetween2(pageCode, "name='user_token' value='", "' />");
                 postData = postData.Replace("'TOKEN'", WebUtility.UrlEncode(token));
                 Authorized = await Post(postData, proxy, myCookies);
             }
@@ -119,9 +119,9 @@ namespace ConsoleLogin
                     {
                         typeof(LoginCore).GetProperty(property).SetValue(this, value);
                     }
-                    catch(Exception ex)
+                    catch(Exception)
                     {
-                        Console.WriteLine(ex.Message);
+                        throw new Exception("Cannot convert to Login Page file: " + path);
                     }
                 }
                 
