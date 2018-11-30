@@ -28,8 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.txtPostString = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
             this.tabControl2 = new System.Windows.Forms.TabControl();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -47,20 +45,6 @@
             this.btnSendFilePath = new System.Windows.Forms.Button();
             this.tabPage8 = new System.Windows.Forms.TabPage();
             this.listBoxFoundPass = new System.Windows.Forms.ListBox();
-            this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.txtNavigateReferer = new System.Windows.Forms.TextBox();
-            this.txtNavigateUrl = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.tabPage5 = new System.Windows.Forms.TabPage();
-            this.txtPostReferer = new System.Windows.Forms.TextBox();
-            this.txtPostUrl = new System.Windows.Forms.TextBox();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.btnSaveProperties = new System.Windows.Forms.Button();
-            this.txtIndicateString = new System.Windows.Forms.TextBox();
-            this.label9 = new System.Windows.Forms.Label();
             this.tabControl3 = new System.Windows.Forms.TabControl();
             this.tabPage7 = new System.Windows.Forms.TabPage();
             this.listBoxPages = new System.Windows.Forms.ListBox();
@@ -69,7 +53,10 @@
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.listBoxProgress = new System.Windows.Forms.ListBox();
             this.tabPage13 = new System.Windows.Forms.TabPage();
+            this.btnClearProxyList = new System.Windows.Forms.Button();
+            this.lblProxyPath = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
+            this.btnProxyFilePath = new System.Windows.Forms.Button();
             this.ChangeTimeProxyMins = new System.Windows.Forms.NumericUpDown();
             this.dataGridViewProxy = new System.Windows.Forms.DataGridView();
             this.ProxyIP = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -82,19 +69,16 @@
             this.txtBProxy = new System.Windows.Forms.TextBox();
             this.checkBoxProxyAuto = new System.Windows.Forms.CheckBox();
             this.label11 = new System.Windows.Forms.Label();
-            this.lblProxyPath = new System.Windows.Forms.Label();
-            this.btnProxyFilePath = new System.Windows.Forms.Button();
-            this.btnClearProxyList = new System.Windows.Forms.Button();
             this.checkBoxWithProxy = new System.Windows.Forms.CheckBox();
+            this.btnAddNewLoginPage = new System.Windows.Forms.Button();
+            this.fileSystemWatcher1 = new System.IO.FileSystemWatcher();
+            this.button1 = new System.Windows.Forms.Button();
             this.tabControl2.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.tabPage4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.frequencySeconds)).BeginInit();
             this.tabPage8.SuspendLayout();
-            this.tabControl1.SuspendLayout();
-            this.tabPage1.SuspendLayout();
-            this.tabPage5.SuspendLayout();
             this.tabControl3.SuspendLayout();
             this.tabPage7.SuspendLayout();
             this.tabPage6.SuspendLayout();
@@ -103,33 +87,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.ChangeTimeProxyMins)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewProxy)).BeginInit();
             this.statusStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).BeginInit();
             this.SuspendLayout();
-            // 
-            // txtPostString
-            // 
-            this.txtPostString.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtPostString.BackColor = System.Drawing.Color.Black;
-            this.txtPostString.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPostString.ForeColor = System.Drawing.Color.White;
-            this.txtPostString.Location = new System.Drawing.Point(188, 11);
-            this.txtPostString.Margin = new System.Windows.Forms.Padding(4);
-            this.txtPostString.Name = "txtPostString";
-            this.txtPostString.Size = new System.Drawing.Size(761, 24);
-            this.txtPostString.TabIndex = 13;
-            this.txtPostString.Text = "ReturnUrl=%2F&AuthEmail=\'USER\'&AuthPassword=\'PASS\'&__SART=\'TOKEN\'%3D";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.BackColor = System.Drawing.Color.Yellow;
-            this.label3.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(93, 14);
-            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(87, 19);
-            this.label3.TabIndex = 11;
-            this.label3.Text = "PostData:";
             // 
             // tabControl2
             // 
@@ -369,155 +328,6 @@
             this.listBoxFoundPass.Size = new System.Drawing.Size(585, 94);
             this.listBoxFoundPass.TabIndex = 0;
             // 
-            // tabControl1
-            // 
-            this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage5);
-            this.tabControl1.Location = new System.Drawing.Point(47, 89);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(367, 143);
-            this.tabControl1.TabIndex = 17;
-            // 
-            // tabPage1
-            // 
-            this.tabPage1.BackColor = System.Drawing.Color.LightSteelBlue;
-            this.tabPage1.Controls.Add(this.txtNavigateReferer);
-            this.tabPage1.Controls.Add(this.txtNavigateUrl);
-            this.tabPage1.Controls.Add(this.label5);
-            this.tabPage1.Controls.Add(this.label4);
-            this.tabPage1.Location = new System.Drawing.Point(4, 25);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(359, 114);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "NavigateUrl";
-            // 
-            // txtNavigateReferer
-            // 
-            this.txtNavigateReferer.Location = new System.Drawing.Point(79, 67);
-            this.txtNavigateReferer.Name = "txtNavigateReferer";
-            this.txtNavigateReferer.Size = new System.Drawing.Size(222, 22);
-            this.txtNavigateReferer.TabIndex = 16;
-            // 
-            // txtNavigateUrl
-            // 
-            this.txtNavigateUrl.Location = new System.Drawing.Point(79, 23);
-            this.txtNavigateUrl.Name = "txtNavigateUrl";
-            this.txtNavigateUrl.Size = new System.Drawing.Size(222, 22);
-            this.txtNavigateUrl.TabIndex = 15;
-            this.txtNavigateUrl.Text = "https://www.twirpx.com/";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(4, 69);
-            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(57, 17);
-            this.label5.TabIndex = 14;
-            this.label5.Text = "Referer";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(7, 25);
-            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(37, 17);
-            this.label4.TabIndex = 13;
-            this.label4.Text = "URL";
-            // 
-            // tabPage5
-            // 
-            this.tabPage5.BackColor = System.Drawing.Color.LightSteelBlue;
-            this.tabPage5.Controls.Add(this.txtPostReferer);
-            this.tabPage5.Controls.Add(this.txtPostUrl);
-            this.tabPage5.Controls.Add(this.label8);
-            this.tabPage5.Controls.Add(this.label6);
-            this.tabPage5.Location = new System.Drawing.Point(4, 25);
-            this.tabPage5.Name = "tabPage5";
-            this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(359, 114);
-            this.tabPage5.TabIndex = 2;
-            this.tabPage5.Text = "PostUrl";
-            // 
-            // txtPostReferer
-            // 
-            this.txtPostReferer.Location = new System.Drawing.Point(79, 67);
-            this.txtPostReferer.Name = "txtPostReferer";
-            this.txtPostReferer.Size = new System.Drawing.Size(222, 22);
-            this.txtPostReferer.TabIndex = 16;
-            // 
-            // txtPostUrl
-            // 
-            this.txtPostUrl.Location = new System.Drawing.Point(79, 23);
-            this.txtPostUrl.Name = "txtPostUrl";
-            this.txtPostUrl.Size = new System.Drawing.Size(222, 22);
-            this.txtPostUrl.TabIndex = 15;
-            this.txtPostUrl.Text = "https://www.twirpx.com/auth/login/";
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(4, 69);
-            this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(57, 17);
-            this.label8.TabIndex = 14;
-            this.label8.Text = "Referer";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(7, 25);
-            this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(37, 17);
-            this.label6.TabIndex = 13;
-            this.label6.Text = "URL";
-            // 
-            // btnSaveProperties
-            // 
-            this.btnSaveProperties.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSaveProperties.Location = new System.Drawing.Point(981, 16);
-            this.btnSaveProperties.Name = "btnSaveProperties";
-            this.btnSaveProperties.Size = new System.Drawing.Size(175, 57);
-            this.btnSaveProperties.TabIndex = 18;
-            this.btnSaveProperties.Text = "SaveProperties";
-            this.btnSaveProperties.UseVisualStyleBackColor = true;
-            this.btnSaveProperties.Click += new System.EventHandler(this.btnSaveProperties_Click);
-            // 
-            // txtIndicateString
-            // 
-            this.txtIndicateString.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtIndicateString.BackColor = System.Drawing.Color.Black;
-            this.txtIndicateString.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtIndicateString.ForeColor = System.Drawing.Color.White;
-            this.txtIndicateString.Location = new System.Drawing.Point(188, 43);
-            this.txtIndicateString.Margin = new System.Windows.Forms.Padding(4);
-            this.txtIndicateString.Name = "txtIndicateString";
-            this.txtIndicateString.Size = new System.Drawing.Size(761, 24);
-            this.txtIndicateString.TabIndex = 19;
-            this.txtIndicateString.Text = "<title>Ошибка входа - Все для студента</title>\r\n";
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.BackColor = System.Drawing.Color.Yellow;
-            this.label9.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(57, 46);
-            this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(124, 19);
-            this.label9.TabIndex = 20;
-            this.label9.Text = "IndicateString:";
-            // 
             // tabControl3
             // 
             this.tabControl3.Controls.Add(this.tabPage7);
@@ -532,6 +342,8 @@
             // 
             // tabPage7
             // 
+            this.tabPage7.Controls.Add(this.button1);
+            this.tabPage7.Controls.Add(this.btnAddNewLoginPage);
             this.tabPage7.Controls.Add(this.listBoxPages);
             this.tabPage7.Location = new System.Drawing.Point(4, 25);
             this.tabPage7.Name = "tabPage7";
@@ -609,6 +421,37 @@
             this.tabPage13.Text = "Proxy List";
             this.tabPage13.UseVisualStyleBackColor = true;
             // 
+            // btnClearProxyList
+            // 
+            this.btnClearProxyList.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.btnClearProxyList.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnClearProxyList.FlatAppearance.BorderColor = System.Drawing.Color.Blue;
+            this.btnClearProxyList.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Lime;
+            this.btnClearProxyList.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DeepSkyBlue;
+            this.btnClearProxyList.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnClearProxyList.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnClearProxyList.ForeColor = System.Drawing.Color.White;
+            this.btnClearProxyList.Location = new System.Drawing.Point(468, 107);
+            this.btnClearProxyList.Margin = new System.Windows.Forms.Padding(4);
+            this.btnClearProxyList.Name = "btnClearProxyList";
+            this.btnClearProxyList.Size = new System.Drawing.Size(151, 28);
+            this.btnClearProxyList.TabIndex = 20;
+            this.btnClearProxyList.Text = "Cleal Proxy List";
+            this.btnClearProxyList.UseVisualStyleBackColor = false;
+            this.btnClearProxyList.Click += new System.EventHandler(this.btnClearProxyList_Click);
+            // 
+            // lblProxyPath
+            // 
+            this.lblProxyPath.AutoSize = true;
+            this.lblProxyPath.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblProxyPath.ForeColor = System.Drawing.Color.Black;
+            this.lblProxyPath.Location = new System.Drawing.Point(627, 71);
+            this.lblProxyPath.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblProxyPath.Name = "lblProxyPath";
+            this.lblProxyPath.Size = new System.Drawing.Size(32, 17);
+            this.lblProxyPath.TabIndex = 17;
+            this.lblProxyPath.Text = "? : ";
+            // 
             // label10
             // 
             this.label10.AutoSize = true;
@@ -619,6 +462,25 @@
             this.label10.Size = new System.Drawing.Size(213, 19);
             this.label10.TabIndex = 19;
             this.label10.Text = "Proxy Change Time (Mins): ";
+            // 
+            // btnProxyFilePath
+            // 
+            this.btnProxyFilePath.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.btnProxyFilePath.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnProxyFilePath.FlatAppearance.BorderColor = System.Drawing.Color.Blue;
+            this.btnProxyFilePath.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Lime;
+            this.btnProxyFilePath.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DeepSkyBlue;
+            this.btnProxyFilePath.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnProxyFilePath.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnProxyFilePath.ForeColor = System.Drawing.Color.White;
+            this.btnProxyFilePath.Location = new System.Drawing.Point(468, 64);
+            this.btnProxyFilePath.Margin = new System.Windows.Forms.Padding(4);
+            this.btnProxyFilePath.Name = "btnProxyFilePath";
+            this.btnProxyFilePath.Size = new System.Drawing.Size(151, 28);
+            this.btnProxyFilePath.TabIndex = 16;
+            this.btnProxyFilePath.Text = "Read from File";
+            this.btnProxyFilePath.UseVisualStyleBackColor = false;
+            this.btnProxyFilePath.Click += new System.EventHandler(this.btnProxyFilePath_Click);
             // 
             // ChangeTimeProxyMins
             // 
@@ -756,56 +618,6 @@
             this.label11.TabIndex = 23;
             this.label11.Text = "Proxy : ";
             // 
-            // lblProxyPath
-            // 
-            this.lblProxyPath.AutoSize = true;
-            this.lblProxyPath.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblProxyPath.ForeColor = System.Drawing.Color.Black;
-            this.lblProxyPath.Location = new System.Drawing.Point(627, 71);
-            this.lblProxyPath.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblProxyPath.Name = "lblProxyPath";
-            this.lblProxyPath.Size = new System.Drawing.Size(32, 17);
-            this.lblProxyPath.TabIndex = 17;
-            this.lblProxyPath.Text = "? : ";
-            // 
-            // btnProxyFilePath
-            // 
-            this.btnProxyFilePath.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.btnProxyFilePath.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnProxyFilePath.FlatAppearance.BorderColor = System.Drawing.Color.Blue;
-            this.btnProxyFilePath.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Lime;
-            this.btnProxyFilePath.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DeepSkyBlue;
-            this.btnProxyFilePath.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnProxyFilePath.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnProxyFilePath.ForeColor = System.Drawing.Color.White;
-            this.btnProxyFilePath.Location = new System.Drawing.Point(468, 64);
-            this.btnProxyFilePath.Margin = new System.Windows.Forms.Padding(4);
-            this.btnProxyFilePath.Name = "btnProxyFilePath";
-            this.btnProxyFilePath.Size = new System.Drawing.Size(151, 28);
-            this.btnProxyFilePath.TabIndex = 16;
-            this.btnProxyFilePath.Text = "Read from File";
-            this.btnProxyFilePath.UseVisualStyleBackColor = false;
-            this.btnProxyFilePath.Click += new System.EventHandler(this.btnProxyFilePath_Click);
-            // 
-            // btnClearProxyList
-            // 
-            this.btnClearProxyList.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.btnClearProxyList.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnClearProxyList.FlatAppearance.BorderColor = System.Drawing.Color.Blue;
-            this.btnClearProxyList.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Lime;
-            this.btnClearProxyList.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DeepSkyBlue;
-            this.btnClearProxyList.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnClearProxyList.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnClearProxyList.ForeColor = System.Drawing.Color.White;
-            this.btnClearProxyList.Location = new System.Drawing.Point(468, 107);
-            this.btnClearProxyList.Margin = new System.Windows.Forms.Padding(4);
-            this.btnClearProxyList.Name = "btnClearProxyList";
-            this.btnClearProxyList.Size = new System.Drawing.Size(151, 28);
-            this.btnClearProxyList.TabIndex = 20;
-            this.btnClearProxyList.Text = "Cleal Proxy List";
-            this.btnClearProxyList.UseVisualStyleBackColor = false;
-            this.btnClearProxyList.Click += new System.EventHandler(this.btnClearProxyList_Click);
-            // 
             // checkBoxWithProxy
             // 
             this.checkBoxWithProxy.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -823,6 +635,48 @@
             this.checkBoxWithProxy.UseVisualStyleBackColor = true;
             this.checkBoxWithProxy.CheckedChanged += new System.EventHandler(this.checkBoxWithProxy_CheckedChanged);
             // 
+            // btnAddNewLoginPage
+            // 
+            this.btnAddNewLoginPage.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.btnAddNewLoginPage.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnAddNewLoginPage.FlatAppearance.BorderColor = System.Drawing.Color.Blue;
+            this.btnAddNewLoginPage.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Lime;
+            this.btnAddNewLoginPage.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DeepSkyBlue;
+            this.btnAddNewLoginPage.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAddNewLoginPage.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAddNewLoginPage.ForeColor = System.Drawing.Color.White;
+            this.btnAddNewLoginPage.Location = new System.Drawing.Point(688, 122);
+            this.btnAddNewLoginPage.Margin = new System.Windows.Forms.Padding(4);
+            this.btnAddNewLoginPage.Name = "btnAddNewLoginPage";
+            this.btnAddNewLoginPage.Size = new System.Drawing.Size(217, 42);
+            this.btnAddNewLoginPage.TabIndex = 7;
+            this.btnAddNewLoginPage.Text = "Add new page";
+            this.btnAddNewLoginPage.UseVisualStyleBackColor = false;
+            this.btnAddNewLoginPage.Click += new System.EventHandler(this.btnAddNewLoginPage_Click);
+            // 
+            // fileSystemWatcher1
+            // 
+            this.fileSystemWatcher1.EnableRaisingEvents = true;
+            this.fileSystemWatcher1.SynchronizingObject = this;
+            // 
+            // button1
+            // 
+            this.button1.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.button1.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button1.FlatAppearance.BorderColor = System.Drawing.Color.Blue;
+            this.button1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Lime;
+            this.button1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DeepSkyBlue;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.ForeColor = System.Drawing.Color.White;
+            this.button1.Location = new System.Drawing.Point(688, 185);
+            this.button1.Margin = new System.Windows.Forms.Padding(4);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(217, 32);
+            this.button1.TabIndex = 21;
+            this.button1.Text = "Clear Pages List";
+            this.button1.UseVisualStyleBackColor = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -835,13 +689,7 @@
             this.Controls.Add(this.label11);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.tabControl3);
-            this.Controls.Add(this.label9);
-            this.Controls.Add(this.txtIndicateString);
-            this.Controls.Add(this.btnSaveProperties);
-            this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.tabControl2);
-            this.Controls.Add(this.txtPostString);
-            this.Controls.Add(this.label3);
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -853,11 +701,6 @@
             this.tabPage4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.frequencySeconds)).EndInit();
             this.tabPage8.ResumeLayout(false);
-            this.tabControl1.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
-            this.tabPage1.PerformLayout();
-            this.tabPage5.ResumeLayout(false);
-            this.tabPage5.PerformLayout();
             this.tabControl3.ResumeLayout(false);
             this.tabPage7.ResumeLayout(false);
             this.tabPage6.ResumeLayout(false);
@@ -868,13 +711,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewProxy)).EndInit();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TabControl tabControl2;
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.GroupBox groupBox2;
@@ -890,21 +733,6 @@
         private System.Windows.Forms.Button btnStopSendFromFile;
         private System.Windows.Forms.Button btnStartSendFromFile;
         private System.Windows.Forms.Button btnSendFilePath;
-        private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.TextBox txtNavigateReferer;
-        private System.Windows.Forms.TextBox txtNavigateUrl;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TabPage tabPage5;
-        private System.Windows.Forms.TextBox txtPostReferer;
-        private System.Windows.Forms.TextBox txtPostUrl;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Button btnSaveProperties;
-        private System.Windows.Forms.TextBox txtIndicateString;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.TextBox txtPostString;
         private System.Windows.Forms.TabControl tabControl3;
         private System.Windows.Forms.TabPage tabPage7;
         private System.Windows.Forms.TabPage tabPage6;
@@ -932,6 +760,9 @@
         private System.Windows.Forms.DataGridView dataGridViewProxy;
         private System.Windows.Forms.Button btnClearProxyList;
         private System.Windows.Forms.CheckBox checkBoxWithProxy;
+        private System.Windows.Forms.Button btnAddNewLoginPage;
+        private System.IO.FileSystemWatcher fileSystemWatcher1;
+        private System.Windows.Forms.Button button1;
     }
 }
 

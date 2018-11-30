@@ -71,14 +71,6 @@ namespace ConsoleLogin
             }
         }
 
-        private void btnSaveProperties_Click(object sender, EventArgs e)
-        {
-            LoginCore siteInfo = new LoginCore(ChangeUI,"default",
-                txtIndicateString.Text, txtPostString.Text,txtPostUrl.Text,
-                txtPostReferer.Text,txtNavigateUrl.Text,txtNavigateReferer.Text);
-            core.AddPage(siteInfo);
-        }
-
         private void btnSendFilePath_Click(object sender, EventArgs e)
         {
             OpenFileDialog ofd = new OpenFileDialog();
@@ -193,6 +185,12 @@ namespace ConsoleLogin
                 ChangeUI(this, new LoginEventArgs(EventType.Progress,
                     "You will login without proxy"));
             }
+        }
+
+        private void btnAddNewLoginPage_Click(object sender, EventArgs e)
+        {
+            var pageForm = new LoginPageSettingsForm();
+            pageForm.ShowDialog();
         }
     }
 }
