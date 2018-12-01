@@ -8,8 +8,20 @@ namespace ConsoleLogin
 {
     class Parser
     {
-        public static string GetToken(string actionType)
+        public static string GetToken(string pageCode, string actionType)
         {
+            var doc = new HtmlAgilityPack.HtmlDocument();
+            doc.LoadHtml(pageCode);
+
+            var form = doc.DocumentNode.SelectSingleNode(string.Format("//form[@action='{0}']",
+                actionType));
+
+            var inputs = form.SelectNodes("//input");
+            foreach (var elem in inputs)
+            {
+                if (elem.GetAttributeValue("type", "") == "hidden")
+                    return elem.GetAttributeValue("value", "");
+            }
             return "";
         }
         public static string GetBetween(string msg, string start, string stop)

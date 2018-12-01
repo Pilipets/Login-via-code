@@ -63,7 +63,8 @@ namespace ConsoleLogin
                 string pageCode = getData.Item1;
 
                 CookieContainer myCookies = getData.Item2;
-                string  token = Parser.GetBetween(pageCode, "name=\"__SART\" type=\"hidden\" value=\"", "\" />");
+                string token = Parser.GetToken(pageCode, ActionType);
+                //string  token = Parser.GetBetween(pageCode, "name=\"__SART\" type=\"hidden\" value=\"", "\" />");
                 //string token = Parser.GetBetween2(pageCode, "name='user_token' value='", "' />");
                 postData = postData.Replace("'TOKEN'", WebUtility.UrlEncode(token));
                 Authorized = await Post(postData, proxy, myCookies);

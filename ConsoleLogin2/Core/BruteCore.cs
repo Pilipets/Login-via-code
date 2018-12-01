@@ -17,7 +17,6 @@ namespace ConsoleLogin
 
 
         LoginCore page;
-        string defaultUserName = "admin";
 
         public BindingList<LoginCore> pages;
 
