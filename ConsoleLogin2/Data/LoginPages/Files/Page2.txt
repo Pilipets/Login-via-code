@@ -1,0 +1,7 @@
+﻿Name: XAMPP/DWWA - LocalServer
+postPattern: username='USER'&password='PASS'&Login=Login&user_token='TOKEN'
+navigateUrl: http://localhost/dvwa
+navigateReferer: http://localhost/dvwa
+ActionType: login.php
+pageEncoding: ASCII
+indicateString: Login failed

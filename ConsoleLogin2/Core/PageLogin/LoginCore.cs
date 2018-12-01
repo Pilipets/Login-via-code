@@ -19,17 +19,17 @@ namespace ConsoleLogin
         public Encoding pageEncoding { get; set; }
         public string indicateString { get; set; }
 
+        public string navigateUrl { get; set; }
+        public string navigateReferer { get; set; }
+
         public string postPattern { get; set; }
         public string postUrl { get; set; }
         public string postReferer { get; set; }
 
-        public string navigateUrl { get; set; }
-        public string navigateReferer { get; set; }
-
         public string ActionType { get; set; }
 
         public LoginCore(Status updaterUI, string Name, string indicateString, string postPattern, string postUrl,
-            string postReferer, string navigateUrl, string navigateReferer) : this(updaterUI)
+            string postReferer) : this(updaterUI)
         {
             this.Name = Name;
             this.postPattern = postPattern;
@@ -37,8 +37,6 @@ namespace ConsoleLogin
             isTokenRequired = postPattern.Contains("'TOKEN'");
             this.postUrl = postUrl;
             this.postReferer = postReferer;
-            this.navigateUrl = navigateUrl;
-            this.navigateReferer = navigateReferer;
         }
         public LoginCore(Status updaterUI)
         {
@@ -46,8 +44,7 @@ namespace ConsoleLogin
         }
         public Task<Tuple<string,CookieContainer>> Get(WebProxy proxy)
         {
-            return base.Get(navigateUrl, navigateReferer, proxy);
-            
+            return base.Get(navigateUrl, navigateReferer, proxy);         
         }
         public Task<bool> Post(string postData, WebProxy proxy, CookieContainer cookies = null)
         {
@@ -66,8 +63,8 @@ namespace ConsoleLogin
                 string pageCode = getData.Item1;
 
                 CookieContainer myCookies = getData.Item2;
-                //string  token = Parser.GetBetween(pageCode, "name=\"__SART\" type=\"hidden\" value=\"", "\" />");
-                string token = Parser.GetBetween2(pageCode, "name='user_token' value='", "' />");
+                string  token = Parser.GetBetween(pageCode, "name=\"__SART\" type=\"hidden\" value=\"", "\" />");
+                //string token = Parser.GetBetween2(pageCode, "name='user_token' value='", "' />");
                 postData = postData.Replace("'TOKEN'", WebUtility.UrlEncode(token));
                 Authorized = await Post(postData, proxy, myCookies);
             }
@@ -129,8 +126,28 @@ namespace ConsoleLogin
             } while (reader.Peek() >= 0);
             reader.Dispose();
             file.Dispose();
+
+
             this.isTokenRequired = this.postPattern.Contains("'TOKEN'");
+            postUrl = MakePost(navigateUrl, ActionType);
+            postReferer = MakePost(navigateReferer, ActionType);
+
             ChangeUI(this, new LoginEventArgs(EventType.Progress, "Added new page" + this.Name));
+        }
+
+        private string MakePost(string navigateAdress, string actionAdress)
+        {
+            if (navigateAdress == "")
+                return "";
+
+            string result = navigateAdress;
+            if (actionAdress[0] == '/' && navigateAdress[navigateAdress.Length - 1] == '/')
+                result += actionAdress.Substring(1);
+            else if (actionAdress[0] != '/' && navigateAdress[navigateAdress.Length - 1] != '/')
+                result += '/' + actionAdress;
+            else
+                result += actionAdress;
+            return result;
         }
     }
 }
