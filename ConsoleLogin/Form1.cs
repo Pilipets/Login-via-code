@@ -37,6 +37,14 @@ namespace ConsoleLogin
             backgroundWorkerLogin.RunWorkerAsync();
         }
 
+        public void AddPage(string pageName, string postString, string indicateString, 
+            string navigateUrl, string navigateReferer, string formAction)
+        {
+            LoginCore page = new LoginCore(ChangeUI, pageName, postString, indicateString, 
+                navigateUrl, navigateReferer, formAction);
+            core.AddPage(page);
+        }
+
         private void ChangeUI(object sender, LoginEventArgs e)
         {
             string _message = string.Format("{0}  {1}", DateTime.Now.ToShortTimeString(), 
@@ -92,7 +100,7 @@ namespace ConsoleLogin
                 btnSendFilePath.Enabled = false;
 
                 await Task.Run(() => core.StartBruteAsync((int)frequencySeconds.Value,
-                    txtUsername.Text, lblFilePath.Text));
+                    txtBruteUsername.Text, lblFilePath.Text));
                 btnSendFilePath.Enabled = true;
                 btnStopSendFromFile.Enabled = false;
                 btnStartSendFromFile.Enabled = true;

@@ -17,7 +17,6 @@ namespace ConsoleLogin
 
 
         LoginCore page;
-        string defaultUserName = "admin";
 
         public BindingList<LoginCore> pages;
 
@@ -54,7 +53,7 @@ namespace ConsoleLogin
                 while (keepSending == true && streamReader.Peek() >= 0)
                 {
                     string _line = await streamReader.ReadLineAsync();
-                    if(await LoginViaCore(defaultUserName,_line))
+                    if(await LoginViaCore(userName, _line))
                     {
                         keepSending = false;
                     }
@@ -83,7 +82,7 @@ namespace ConsoleLogin
                 }
                 catch(IndexOutOfRangeException)
                 {
-                    throw new Exception("Set proxyList first to enable auto-change proxy settings");
+                    throw new IndexOutOfRangeException("Set proxyList first to enable auto-change proxy settings");
                 }
             }
             else if (goWithProxy)
@@ -161,7 +160,8 @@ namespace ConsoleLogin
                 }
                 catch(IndexOutOfRangeException)
                 {
-                    throw new Exception("File format for proxy list is incorrect " + path);
+                    throw new IndexOutOfRangeException("File format for proxy list is incorrect "
+                        + path);
                 }
             } while (reader.Peek() >= 0);
             reader.Dispose();
@@ -182,7 +182,7 @@ namespace ConsoleLogin
             }
             catch(IndexOutOfRangeException)
             {
-                throw new Exception("Presented format of proxy is incorrect " + proxy);
+                throw new IndexOutOfRangeException("Presented format of proxy is incorrect " + proxy);
             }
         }
     }

@@ -1,9 +1,7 @@
 ﻿Name: Twirpx - Все для студента
 postPattern: ReturnUrl=/&AuthEmail='USER'&AuthPassword='PASS'&__SART='TOKEN'
-postUrl: https://www.twirpx.com/auth/login/
-postReferer:
+navigateUrl: https://www.twirpx.com
+navigateReferer:
 ActionType: /auth/login/
 pageEncoding: UTF8
-navigateUrl: https://www.twirpx.com/
-navigateReferer:
 indicateString: <title>Ошибка входа - Все для студента</title>

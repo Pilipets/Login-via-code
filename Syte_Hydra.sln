@@ -5,9 +5,7 @@ VisualStudioVersion = 15.0.28010.2050
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Syte_Hydra", "Syte_Hydra\Syte_Hydra.csproj", "{C8AB79E9-CF01-4551-842A-A0B829DDAC08}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleLogin", "ConsoleLogin\ConsoleLogin.csproj", "{382EF243-DFE2-4AC9-8BC9-C2C372F0EEF4}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleLogin2", "ConsoleLogin2\ConsoleLogin2.csproj", "{4893BAB7-48C4-44F5-9E01-1291512A9B63}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleLogin", "ConsoleLogin\ConsoleLogin.csproj", "{4893BAB7-48C4-44F5-9E01-1291512A9B63}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,10 +17,6 @@ Global
 		{C8AB79E9-CF01-4551-842A-A0B829DDAC08}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C8AB79E9-CF01-4551-842A-A0B829DDAC08}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C8AB79E9-CF01-4551-842A-A0B829DDAC08}.Release|Any CPU.Build.0 = Release|Any CPU
-		{382EF243-DFE2-4AC9-8BC9-C2C372F0EEF4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{382EF243-DFE2-4AC9-8BC9-C2C372F0EEF4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{382EF243-DFE2-4AC9-8BC9-C2C372F0EEF4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{382EF243-DFE2-4AC9-8BC9-C2C372F0EEF4}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4893BAB7-48C4-44F5-9E01-1291512A9B63}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4893BAB7-48C4-44F5-9E01-1291512A9B63}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4893BAB7-48C4-44F5-9E01-1291512A9B63}.Release|Any CPU.ActiveCfg = Release|Any CPU

@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{382EF243-DFE2-4AC9-8BC9-C2C372F0EEF4}</ProjectGuid>
+    <ProjectGuid>{4893BAB7-48C4-44F5-9E01-1291512A9B63}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>ConsoleLogin</RootNamespace>
     <AssemblyName>ConsoleLogin</AssemblyName>
@@ -55,7 +55,6 @@
     <Compile Include="Core\PageLogin\LoginCore.cs" />
     <Compile Include="Core\Parser\Parser.cs" />
     <Compile Include="Events\LoginEventArgs.cs" />
-    <Compile Include="Events\MyException.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>

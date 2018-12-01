@@ -47,6 +47,8 @@
             this.listBoxFoundPass = new System.Windows.Forms.ListBox();
             this.tabControl3 = new System.Windows.Forms.TabControl();
             this.tabPage7 = new System.Windows.Forms.TabPage();
+            this.button1 = new System.Windows.Forms.Button();
+            this.btnAddNewLoginPage = new System.Windows.Forms.Button();
             this.listBoxPages = new System.Windows.Forms.ListBox();
             this.tabPage6 = new System.Windows.Forms.TabPage();
             this.listBoxErrors = new System.Windows.Forms.ListBox();
@@ -70,9 +72,9 @@
             this.checkBoxProxyAuto = new System.Windows.Forms.CheckBox();
             this.label11 = new System.Windows.Forms.Label();
             this.checkBoxWithProxy = new System.Windows.Forms.CheckBox();
-            this.btnAddNewLoginPage = new System.Windows.Forms.Button();
             this.fileSystemWatcher1 = new System.IO.FileSystemWatcher();
-            this.button1 = new System.Windows.Forms.Button();
+            this.txtBruteUsername = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
             this.tabControl2.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -352,6 +354,43 @@
             this.tabPage7.TabIndex = 0;
             this.tabPage7.Text = "LoginPages";
             this.tabPage7.UseVisualStyleBackColor = true;
+            // 
+            // button1
+            // 
+            this.button1.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.button1.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button1.FlatAppearance.BorderColor = System.Drawing.Color.Blue;
+            this.button1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Lime;
+            this.button1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DeepSkyBlue;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.ForeColor = System.Drawing.Color.White;
+            this.button1.Location = new System.Drawing.Point(688, 185);
+            this.button1.Margin = new System.Windows.Forms.Padding(4);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(217, 32);
+            this.button1.TabIndex = 21;
+            this.button1.Text = "Clear Pages List";
+            this.button1.UseVisualStyleBackColor = false;
+            // 
+            // btnAddNewLoginPage
+            // 
+            this.btnAddNewLoginPage.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.btnAddNewLoginPage.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnAddNewLoginPage.FlatAppearance.BorderColor = System.Drawing.Color.Blue;
+            this.btnAddNewLoginPage.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Lime;
+            this.btnAddNewLoginPage.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DeepSkyBlue;
+            this.btnAddNewLoginPage.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAddNewLoginPage.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAddNewLoginPage.ForeColor = System.Drawing.Color.White;
+            this.btnAddNewLoginPage.Location = new System.Drawing.Point(688, 122);
+            this.btnAddNewLoginPage.Margin = new System.Windows.Forms.Padding(4);
+            this.btnAddNewLoginPage.Name = "btnAddNewLoginPage";
+            this.btnAddNewLoginPage.Size = new System.Drawing.Size(217, 42);
+            this.btnAddNewLoginPage.TabIndex = 7;
+            this.btnAddNewLoginPage.Text = "Add new page";
+            this.btnAddNewLoginPage.UseVisualStyleBackColor = false;
+            this.btnAddNewLoginPage.Click += new System.EventHandler(this.btnAddNewLoginPage_Click);
             // 
             // listBoxPages
             // 
@@ -635,47 +674,36 @@
             this.checkBoxWithProxy.UseVisualStyleBackColor = true;
             this.checkBoxWithProxy.CheckedChanged += new System.EventHandler(this.checkBoxWithProxy_CheckedChanged);
             // 
-            // btnAddNewLoginPage
-            // 
-            this.btnAddNewLoginPage.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.btnAddNewLoginPage.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnAddNewLoginPage.FlatAppearance.BorderColor = System.Drawing.Color.Blue;
-            this.btnAddNewLoginPage.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Lime;
-            this.btnAddNewLoginPage.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DeepSkyBlue;
-            this.btnAddNewLoginPage.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAddNewLoginPage.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAddNewLoginPage.ForeColor = System.Drawing.Color.White;
-            this.btnAddNewLoginPage.Location = new System.Drawing.Point(688, 122);
-            this.btnAddNewLoginPage.Margin = new System.Windows.Forms.Padding(4);
-            this.btnAddNewLoginPage.Name = "btnAddNewLoginPage";
-            this.btnAddNewLoginPage.Size = new System.Drawing.Size(217, 42);
-            this.btnAddNewLoginPage.TabIndex = 7;
-            this.btnAddNewLoginPage.Text = "Add new page";
-            this.btnAddNewLoginPage.UseVisualStyleBackColor = false;
-            this.btnAddNewLoginPage.Click += new System.EventHandler(this.btnAddNewLoginPage_Click);
-            // 
             // fileSystemWatcher1
             // 
             this.fileSystemWatcher1.EnableRaisingEvents = true;
             this.fileSystemWatcher1.SynchronizingObject = this;
             // 
-            // button1
+            // txtBruteUsername
             // 
-            this.button1.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.button1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button1.FlatAppearance.BorderColor = System.Drawing.Color.Blue;
-            this.button1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Lime;
-            this.button1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DeepSkyBlue;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.ForeColor = System.Drawing.Color.White;
-            this.button1.Location = new System.Drawing.Point(688, 185);
-            this.button1.Margin = new System.Windows.Forms.Padding(4);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(217, 32);
-            this.button1.TabIndex = 21;
-            this.button1.Text = "Clear Pages List";
-            this.button1.UseVisualStyleBackColor = false;
+            this.txtBruteUsername.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtBruteUsername.BackColor = System.Drawing.Color.Black;
+            this.txtBruteUsername.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtBruteUsername.ForeColor = System.Drawing.Color.White;
+            this.txtBruteUsername.Location = new System.Drawing.Point(278, 26);
+            this.txtBruteUsername.Margin = new System.Windows.Forms.Padding(4);
+            this.txtBruteUsername.Name = "txtBruteUsername";
+            this.txtBruteUsername.Size = new System.Drawing.Size(649, 24);
+            this.txtBruteUsername.TabIndex = 29;
+            this.txtBruteUsername.Text = "Enter username you would like to brute";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.BackColor = System.Drawing.Color.Yellow;
+            this.label3.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(176, 29);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(94, 19);
+            this.label3.TabIndex = 28;
+            this.label3.Text = "Username:";
             // 
             // Form1
             // 
@@ -683,6 +711,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(1182, 675);
+            this.Controls.Add(this.txtBruteUsername);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.checkBoxWithProxy);
             this.Controls.Add(this.txtBProxy);
             this.Controls.Add(this.checkBoxProxyAuto);
@@ -763,6 +793,8 @@
         private System.Windows.Forms.Button btnAddNewLoginPage;
         private System.IO.FileSystemWatcher fileSystemWatcher1;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.TextBox txtBruteUsername;
+        private System.Windows.Forms.Label label3;
     }
 }
 
