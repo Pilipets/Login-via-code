@@ -16,7 +16,7 @@ namespace ConsoleLogin
         event Status ChangeUI;
 
 
-        LoginCore page;
+        public LoginCore page;
 
         public BindingList<LoginCore> pages;
 
@@ -64,8 +64,17 @@ namespace ConsoleLogin
         }
         private Task<bool> LoginViaCore(string userName, string password)
         {
-            WebProxy myProxy = IdentifyProxySettings();
-            return page.Login(userName, password, myProxy);
+            try
+            {
+                WebProxy myProxy = IdentifyProxySettings();
+                return page.Login(userName, password, myProxy);
+            }
+            catch(NullReferenceException)
+            {
+                ChangeUI(this, new LoginEventArgs(EventType.Error, "You must add login page " +
+                    "first"));
+                throw new NullReferenceException();
+            }
         }
         private WebProxy IdentifyProxySettings()
         {
@@ -91,11 +100,20 @@ namespace ConsoleLogin
                 return null;
         }
 
-        public void AddPage(LoginCore siteInfo)
+        public void AddPage(LoginCore siteInfo, int index = -1)
         {
-            pages.Add(siteInfo);
-            ChangeUI(this, new LoginEventArgs(EventType.Progress, 
-                "Added new Page " + siteInfo.Name));
+            if (index > -1)
+            {
+                pages.Insert(index, siteInfo);
+                ChangeUI(this, new LoginEventArgs(EventType.Progress,
+                    "Editted Page " + siteInfo.Name));
+            }
+            else
+            {
+                pages.Add(siteInfo);
+                ChangeUI(this, new LoginEventArgs(EventType.Progress,
+                    "Added new Page " + siteInfo.Name));
+            }
         }
 
         public async Task ReadPagesFromFile(string path)
@@ -184,6 +202,14 @@ namespace ConsoleLogin
             {
                 throw new IndexOutOfRangeException("Presented format of proxy is incorrect " + proxy);
             }
+        }
+
+        public void DeleteCurrentPage()
+        {
+            pages.Remove(page);
+            ChangeUI(this, new LoginEventArgs(EventType.Progress,
+                "Page: " + page.Name + " has been succesfully deleted"));
+            page = pages.Count > 0 ? pages[0] : null;
         }
     }
 }

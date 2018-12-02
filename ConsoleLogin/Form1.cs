@@ -11,7 +11,7 @@ using System.Windows.Forms;
 
 namespace ConsoleLogin
 {
-    public partial class Form1 : Form
+    partial class Form1 : Form
     {
         
         BruteCore core = null;
@@ -37,12 +37,19 @@ namespace ConsoleLogin
             backgroundWorkerLogin.RunWorkerAsync();
         }
 
-        public void AddPage(string pageName, string postString, string indicateString, 
-            string navigateUrl, string navigateReferer, string formAction)
+        public void AddPage(LoginCore editingPage, string pageName, string postString, 
+            string indicateString, string navigateUrl, string navigateReferer, string formAction)
         {
             LoginCore page = new LoginCore(ChangeUI, pageName, postString, indicateString, 
                 navigateUrl, navigateReferer, formAction);
-            core.AddPage(page);
+            if(editingPage != null)
+            {
+                int index = core.pages.IndexOf(editingPage);
+                core.pages.RemoveAt(index);
+                core.AddPage(page, index);
+            }
+            else
+                core.AddPage(page);
         }
 
         private void ChangeUI(object sender, LoginEventArgs e)
@@ -197,8 +204,44 @@ namespace ConsoleLogin
 
         private void btnAddNewLoginPage_Click(object sender, EventArgs e)
         {
-            var pageForm = new LoginPageSettingsForm();
+            var pageForm = new LoginPageSettingsForm(this);
             pageForm.ShowDialog();
+        }
+
+        private void btnClearPagesList_Click(object sender, EventArgs e)
+        {
+            core.pages.Clear();
+            ChangeUI(this, new LoginEventArgs(EventType.Progress, "Login pages list has" +
+                "been succesfullu cleared"));
+        }
+
+        private void btnEditLoginPage_Click(object sender, EventArgs e)
+        {
+            var pageForm = new LoginPageSettingsForm(this);
+            pageForm.SetPage(core.page);
+            pageForm.ShowDialog();
+        }
+
+        private void checkBoxProxyAuto_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBoxProxyAuto.Checked)
+            {
+                core.autoChangeProxy = true;
+                ChangeUI(this, new LoginEventArgs(EventType.Progress,
+                    "Proxy will be changed after each " + ChangeTimeProxyMins.Value
+                    + "mins"));
+            }
+            else
+            {
+                core.autoChangeProxy = false;
+                ChangeUI(this, new LoginEventArgs(EventType.Progress,
+                    "You will login without autochanging proxies"));
+            }
+        }
+
+        private void btnRemoveLoginPage_Click(object sender, EventArgs e)
+        {
+            core.DeleteCurrentPage();
         }
     }
 }

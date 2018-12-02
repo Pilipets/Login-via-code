@@ -11,9 +11,10 @@ using System.Windows.Forms;
 
 namespace ConsoleLogin
 {
-    public partial class LoginPageSettingsForm : Form
+    partial class LoginPageSettingsForm : Form
     {
         Form1 mainPage;
+        LoginCore editingPage;
         public LoginPageSettingsForm()
         {
             InitializeComponent();
@@ -30,8 +31,20 @@ namespace ConsoleLogin
 
         private void btnSaveProperties_Click(object sender, EventArgs e)
         {
-            mainPage.AddPage(txtPageName.Text, txtPostString.Text, txtIndicateString.Text, txtNavigateUrl.Text,
-                 txtNavigateReferer.Text, txtFormAction.Text);
+            mainPage.AddPage(editingPage, txtPageName.Text, txtPostString.Text, txtIndicateString.Text, 
+                txtNavigateUrl.Text, txtNavigateReferer.Text, txtFormAction.Text);
+            this.Close();
+        }
+
+        public void SetPage(LoginCore page)
+        {
+            editingPage = page;
+            txtPageName.Text = page.Name;
+            txtPostString.Text = page.postPattern;
+            txtIndicateString.Text = page.indicateString;
+            txtNavigateUrl.Text = page.navigateUrl;
+            txtNavigateReferer.Text = page.navigateReferer;
+            txtFormAction.Text = page.ActionType;
         }
     }
 }

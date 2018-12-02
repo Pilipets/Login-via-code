@@ -47,7 +47,9 @@
             this.listBoxFoundPass = new System.Windows.Forms.ListBox();
             this.tabControl3 = new System.Windows.Forms.TabControl();
             this.tabPage7 = new System.Windows.Forms.TabPage();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnRemoveLoginPage = new System.Windows.Forms.Button();
+            this.btnEditLoginPage = new System.Windows.Forms.Button();
+            this.btnClearPagesList = new System.Windows.Forms.Button();
             this.btnAddNewLoginPage = new System.Windows.Forms.Button();
             this.listBoxPages = new System.Windows.Forms.ListBox();
             this.tabPage6 = new System.Windows.Forms.TabPage();
@@ -344,7 +346,9 @@
             // 
             // tabPage7
             // 
-            this.tabPage7.Controls.Add(this.button1);
+            this.tabPage7.Controls.Add(this.btnRemoveLoginPage);
+            this.tabPage7.Controls.Add(this.btnEditLoginPage);
+            this.tabPage7.Controls.Add(this.btnClearPagesList);
             this.tabPage7.Controls.Add(this.btnAddNewLoginPage);
             this.tabPage7.Controls.Add(this.listBoxPages);
             this.tabPage7.Location = new System.Drawing.Point(4, 25);
@@ -355,23 +359,62 @@
             this.tabPage7.Text = "LoginPages";
             this.tabPage7.UseVisualStyleBackColor = true;
             // 
-            // button1
+            // btnRemoveLoginPage
             // 
-            this.button1.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.button1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button1.FlatAppearance.BorderColor = System.Drawing.Color.Blue;
-            this.button1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Lime;
-            this.button1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DeepSkyBlue;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.ForeColor = System.Drawing.Color.White;
-            this.button1.Location = new System.Drawing.Point(688, 185);
-            this.button1.Margin = new System.Windows.Forms.Padding(4);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(217, 32);
-            this.button1.TabIndex = 21;
-            this.button1.Text = "Clear Pages List";
-            this.button1.UseVisualStyleBackColor = false;
+            this.btnRemoveLoginPage.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.btnRemoveLoginPage.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnRemoveLoginPage.FlatAppearance.BorderColor = System.Drawing.Color.Blue;
+            this.btnRemoveLoginPage.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Lime;
+            this.btnRemoveLoginPage.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DeepSkyBlue;
+            this.btnRemoveLoginPage.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnRemoveLoginPage.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRemoveLoginPage.ForeColor = System.Drawing.Color.White;
+            this.btnRemoveLoginPage.Location = new System.Drawing.Point(659, 140);
+            this.btnRemoveLoginPage.Margin = new System.Windows.Forms.Padding(4);
+            this.btnRemoveLoginPage.Name = "btnRemoveLoginPage";
+            this.btnRemoveLoginPage.Size = new System.Drawing.Size(116, 32);
+            this.btnRemoveLoginPage.TabIndex = 23;
+            this.btnRemoveLoginPage.Text = "Remove Page";
+            this.btnRemoveLoginPage.UseVisualStyleBackColor = false;
+            this.btnRemoveLoginPage.Click += new System.EventHandler(this.btnRemoveLoginPage_Click);
+            // 
+            // btnEditLoginPage
+            // 
+            this.btnEditLoginPage.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.btnEditLoginPage.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnEditLoginPage.FlatAppearance.BorderColor = System.Drawing.Color.Blue;
+            this.btnEditLoginPage.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Lime;
+            this.btnEditLoginPage.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DeepSkyBlue;
+            this.btnEditLoginPage.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnEditLoginPage.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnEditLoginPage.ForeColor = System.Drawing.Color.White;
+            this.btnEditLoginPage.Location = new System.Drawing.Point(659, 185);
+            this.btnEditLoginPage.Margin = new System.Windows.Forms.Padding(4);
+            this.btnEditLoginPage.Name = "btnEditLoginPage";
+            this.btnEditLoginPage.Size = new System.Drawing.Size(116, 32);
+            this.btnEditLoginPage.TabIndex = 22;
+            this.btnEditLoginPage.Text = "Edit Page";
+            this.btnEditLoginPage.UseVisualStyleBackColor = false;
+            this.btnEditLoginPage.Click += new System.EventHandler(this.btnEditLoginPage_Click);
+            // 
+            // btnClearPagesList
+            // 
+            this.btnClearPagesList.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.btnClearPagesList.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnClearPagesList.FlatAppearance.BorderColor = System.Drawing.Color.Blue;
+            this.btnClearPagesList.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Lime;
+            this.btnClearPagesList.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DeepSkyBlue;
+            this.btnClearPagesList.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnClearPagesList.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnClearPagesList.ForeColor = System.Drawing.Color.White;
+            this.btnClearPagesList.Location = new System.Drawing.Point(799, 185);
+            this.btnClearPagesList.Margin = new System.Windows.Forms.Padding(4);
+            this.btnClearPagesList.Name = "btnClearPagesList";
+            this.btnClearPagesList.Size = new System.Drawing.Size(217, 32);
+            this.btnClearPagesList.TabIndex = 21;
+            this.btnClearPagesList.Text = "Clear Pages List";
+            this.btnClearPagesList.UseVisualStyleBackColor = false;
+            this.btnClearPagesList.Click += new System.EventHandler(this.btnClearPagesList_Click);
             // 
             // btnAddNewLoginPage
             // 
@@ -383,7 +426,7 @@
             this.btnAddNewLoginPage.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAddNewLoginPage.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAddNewLoginPage.ForeColor = System.Drawing.Color.White;
-            this.btnAddNewLoginPage.Location = new System.Drawing.Point(688, 122);
+            this.btnAddNewLoginPage.Location = new System.Drawing.Point(799, 135);
             this.btnAddNewLoginPage.Margin = new System.Windows.Forms.Padding(4);
             this.btnAddNewLoginPage.Name = "btnAddNewLoginPage";
             this.btnAddNewLoginPage.Size = new System.Drawing.Size(217, 42);
@@ -643,6 +686,7 @@
             this.checkBoxProxyAuto.TabIndex = 25;
             this.checkBoxProxyAuto.Text = "Auto Change Proxy";
             this.checkBoxProxyAuto.UseVisualStyleBackColor = true;
+            this.checkBoxProxyAuto.CheckedChanged += new System.EventHandler(this.checkBoxProxyAuto_CheckedChanged);
             // 
             // label11
             // 
@@ -792,9 +836,11 @@
         private System.Windows.Forms.CheckBox checkBoxWithProxy;
         private System.Windows.Forms.Button btnAddNewLoginPage;
         private System.IO.FileSystemWatcher fileSystemWatcher1;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnClearPagesList;
         private System.Windows.Forms.TextBox txtBruteUsername;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button btnEditLoginPage;
+        private System.Windows.Forms.Button btnRemoveLoginPage;
     }
 }
 
