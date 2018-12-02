@@ -14,13 +14,14 @@ namespace ConsoleLogin
     class BruteCore
     {
         event Status ChangeUI;
-
+        Timer changeProxyTimer;
 
         public LoginCore page;
 
         public BindingList<LoginCore> pages;
 
         WebProxy certainProxy;
+        WebProxy currentProxy;
 
         public bool goWithProxy { get; set; } = false;
         public bool autoChangeProxy { get; set; } = false;
@@ -44,6 +45,7 @@ namespace ConsoleLogin
         public async Task StartBruteAsync(int frequencySeconds, string userName, string passFile)
         {
             ChangeUI(this, new LoginEventArgs(EventType.Progress, "Async Brute Started"));
+
             int sleepTime = frequencySeconds * 1000;
             keepSending = true;
 
@@ -66,14 +68,13 @@ namespace ConsoleLogin
         {
             try
             {
-                WebProxy myProxy = IdentifyProxySettings();
-                return page.Login(userName, password, myProxy);
+                currentProxy = IdentifyProxySettings();
+                return page.Login(userName, password, currentProxy);
             }
             catch(NullReferenceException)
             {
-                ChangeUI(this, new LoginEventArgs(EventType.Error, "You must add login page " +
-                    "first"));
-                throw new NullReferenceException();
+                throw new NullReferenceException("You must add login page " +
+                    "first");
             }
         }
         private WebProxy IdentifyProxySettings()
@@ -89,15 +90,18 @@ namespace ConsoleLogin
                     currentProxy.BypassProxyOnLocal = true;
                     return currentProxy;
                 }
-                catch(IndexOutOfRangeException)
+                catch (ArgumentOutOfRangeException)
                 {
-                    throw new IndexOutOfRangeException("Set proxyList first to enable auto-change proxy settings");
+                    throw new ArgumentOutOfRangeException("Set proxyList first to enable " +
+                        "auto-change proxy settings");
                 }
             }
             else if (goWithProxy)
                 return certainProxy;
-            else
+            else if (!goWithProxy && !autoChangeProxy)
                 return null;
+            else
+                return currentProxy;
         }
 
         public void AddPage(LoginCore siteInfo, int index = -1)

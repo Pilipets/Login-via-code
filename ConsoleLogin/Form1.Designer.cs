@@ -74,7 +74,6 @@
             this.checkBoxProxyAuto = new System.Windows.Forms.CheckBox();
             this.label11 = new System.Windows.Forms.Label();
             this.checkBoxWithProxy = new System.Windows.Forms.CheckBox();
-            this.fileSystemWatcher1 = new System.IO.FileSystemWatcher();
             this.txtBruteUsername = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.tabControl2.SuspendLayout();
@@ -91,7 +90,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.ChangeTimeProxyMins)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewProxy)).BeginInit();
             this.statusStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl2
@@ -369,7 +367,7 @@
             this.btnRemoveLoginPage.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRemoveLoginPage.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnRemoveLoginPage.ForeColor = System.Drawing.Color.White;
-            this.btnRemoveLoginPage.Location = new System.Drawing.Point(659, 140);
+            this.btnRemoveLoginPage.Location = new System.Drawing.Point(893, 185);
             this.btnRemoveLoginPage.Margin = new System.Windows.Forms.Padding(4);
             this.btnRemoveLoginPage.Name = "btnRemoveLoginPage";
             this.btnRemoveLoginPage.Size = new System.Drawing.Size(116, 32);
@@ -388,7 +386,7 @@
             this.btnEditLoginPage.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnEditLoginPage.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnEditLoginPage.ForeColor = System.Drawing.Color.White;
-            this.btnEditLoginPage.Location = new System.Drawing.Point(659, 185);
+            this.btnEditLoginPage.Location = new System.Drawing.Point(893, 140);
             this.btnEditLoginPage.Margin = new System.Windows.Forms.Padding(4);
             this.btnEditLoginPage.Name = "btnEditLoginPage";
             this.btnEditLoginPage.Size = new System.Drawing.Size(116, 32);
@@ -407,7 +405,7 @@
             this.btnClearPagesList.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnClearPagesList.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnClearPagesList.ForeColor = System.Drawing.Color.White;
-            this.btnClearPagesList.Location = new System.Drawing.Point(799, 185);
+            this.btnClearPagesList.Location = new System.Drawing.Point(659, 185);
             this.btnClearPagesList.Margin = new System.Windows.Forms.Padding(4);
             this.btnClearPagesList.Name = "btnClearPagesList";
             this.btnClearPagesList.Size = new System.Drawing.Size(217, 32);
@@ -426,7 +424,7 @@
             this.btnAddNewLoginPage.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAddNewLoginPage.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAddNewLoginPage.ForeColor = System.Drawing.Color.White;
-            this.btnAddNewLoginPage.Location = new System.Drawing.Point(799, 135);
+            this.btnAddNewLoginPage.Location = new System.Drawing.Point(659, 135);
             this.btnAddNewLoginPage.Margin = new System.Windows.Forms.Padding(4);
             this.btnAddNewLoginPage.Name = "btnAddNewLoginPage";
             this.btnAddNewLoginPage.Size = new System.Drawing.Size(217, 42);
@@ -513,7 +511,7 @@
             this.btnClearProxyList.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnClearProxyList.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnClearProxyList.ForeColor = System.Drawing.Color.White;
-            this.btnClearProxyList.Location = new System.Drawing.Point(468, 107);
+            this.btnClearProxyList.Location = new System.Drawing.Point(468, 114);
             this.btnClearProxyList.Margin = new System.Windows.Forms.Padding(4);
             this.btnClearProxyList.Name = "btnClearProxyList";
             this.btnClearProxyList.Size = new System.Drawing.Size(151, 28);
@@ -568,19 +566,9 @@
             // 
             this.ChangeTimeProxyMins.Location = new System.Drawing.Point(287, 32);
             this.ChangeTimeProxyMins.Margin = new System.Windows.Forms.Padding(4);
-            this.ChangeTimeProxyMins.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
             this.ChangeTimeProxyMins.Name = "ChangeTimeProxyMins";
             this.ChangeTimeProxyMins.Size = new System.Drawing.Size(69, 22);
             this.ChangeTimeProxyMins.TabIndex = 18;
-            this.ChangeTimeProxyMins.Value = new decimal(new int[] {
-            5,
-            0,
-            0,
-            0});
             // 
             // dataGridViewProxy
             // 
@@ -686,7 +674,7 @@
             this.checkBoxProxyAuto.TabIndex = 25;
             this.checkBoxProxyAuto.Text = "Auto Change Proxy";
             this.checkBoxProxyAuto.UseVisualStyleBackColor = true;
-            this.checkBoxProxyAuto.CheckedChanged += new System.EventHandler(this.checkBoxProxyAuto_CheckedChanged);
+            this.checkBoxProxyAuto.CheckStateChanged += new System.EventHandler(this.checkBoxProxyAuto_CheckStateChanged);
             // 
             // label11
             // 
@@ -716,12 +704,7 @@
             this.checkBoxWithProxy.Text = "Go With Proxy";
             this.checkBoxWithProxy.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.checkBoxWithProxy.UseVisualStyleBackColor = true;
-            this.checkBoxWithProxy.CheckedChanged += new System.EventHandler(this.checkBoxWithProxy_CheckedChanged);
-            // 
-            // fileSystemWatcher1
-            // 
-            this.fileSystemWatcher1.EnableRaisingEvents = true;
-            this.fileSystemWatcher1.SynchronizingObject = this;
+            this.checkBoxWithProxy.CheckStateChanged += new System.EventHandler(this.checkBoxProxyAuto_CheckStateChanged);
             // 
             // txtBruteUsername
             // 
@@ -785,7 +768,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewProxy)).EndInit();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -835,7 +817,6 @@
         private System.Windows.Forms.Button btnClearProxyList;
         private System.Windows.Forms.CheckBox checkBoxWithProxy;
         private System.Windows.Forms.Button btnAddNewLoginPage;
-        private System.IO.FileSystemWatcher fileSystemWatcher1;
         private System.Windows.Forms.Button btnClearPagesList;
         private System.Windows.Forms.TextBox txtBruteUsername;
         private System.Windows.Forms.Label label3;

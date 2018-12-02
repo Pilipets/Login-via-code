@@ -31,7 +31,7 @@ namespace ConsoleLogin
             }
             catch(Exception ex)
             {
-                ChangeUI(null, new LoginEventArgs(EventType.Error,
+                ChangeUI(ex.Source, new LoginEventArgs(EventType.Error,
                     ex.Message));
             }
             backgroundWorkerLogin.RunWorkerAsync();
@@ -185,23 +185,6 @@ namespace ConsoleLogin
                 "Proxy list has been succesfully cleared"));
         }
 
-        private void checkBoxWithProxy_CheckedChanged(object sender, EventArgs e)
-        {
-            if (checkBoxWithProxy.Checked)
-            {
-                core.goWithProxy = true;
-                core.SetCertainProxy(txtBProxy.Text);
-                ChangeUI(this, new LoginEventArgs(EventType.Progress,
-                    "You will login with proxy " + txtBProxy.Text));
-            }
-            else
-            {
-                core.goWithProxy = false;
-                ChangeUI(this, new LoginEventArgs(EventType.Progress,
-                    "You will login without proxy"));
-            }
-        }
-
         private void btnAddNewLoginPage_Click(object sender, EventArgs e)
         {
             var pageForm = new LoginPageSettingsForm(this);
@@ -222,26 +205,66 @@ namespace ConsoleLogin
             pageForm.ShowDialog();
         }
 
-        private void checkBoxProxyAuto_CheckedChanged(object sender, EventArgs e)
-        {
-            if (checkBoxProxyAuto.Checked)
-            {
-                core.autoChangeProxy = true;
-                ChangeUI(this, new LoginEventArgs(EventType.Progress,
-                    "Proxy will be changed after each " + ChangeTimeProxyMins.Value
-                    + "mins"));
-            }
-            else
-            {
-                core.autoChangeProxy = false;
-                ChangeUI(this, new LoginEventArgs(EventType.Progress,
-                    "You will login without autochanging proxies"));
-            }
-        }
 
         private void btnRemoveLoginPage_Click(object sender, EventArgs e)
         {
             core.DeleteCurrentPage();
+        }
+
+        private void checkBoxProxyAuto_CheckStateChanged(object sender, EventArgs e)
+        {
+            if (sender == checkBoxWithProxy)
+            {
+                if (checkBoxWithProxy.Checked)
+                {
+                    checkBoxProxyAuto.Checked = false;
+                    core.autoChangeProxy = false;
+                    core.goWithProxy = true;
+                    core.SetCertainProxy(txtBProxy.Text);
+                    ChangeUI(this, new LoginEventArgs(EventType.Progress,
+                        "You will login with proxy " + txtBProxy.Text));
+                }
+                else if (checkBoxProxyAuto.Checked)
+                {
+                    core.goWithProxy = false;
+                    core.autoChangeProxy = true;
+                    ChangeUI(this, new LoginEventArgs(EventType.Progress,
+                        "Proxy will be changed after each " + ChangeTimeProxyMins.Value + "mins"));
+                }
+                else
+                {
+                    core.autoChangeProxy = false;
+                    core.goWithProxy = false;
+                    ChangeUI(this, new LoginEventArgs(EventType.Progress,
+                        "You will login without proxy settings"));
+                }
+            }
+            else if(sender == checkBoxProxyAuto)
+            {
+                if (checkBoxProxyAuto.Checked == true)
+                {
+                    checkBoxWithProxy.Checked = false;
+                    core.goWithProxy = false;
+                    core.autoChangeProxy = true;
+                    ChangeUI(this, new LoginEventArgs(EventType.Progress,
+                        "Proxy will be changed after each " + ChangeTimeProxyMins.Value + "mins"));
+                }
+                else if (checkBoxWithProxy.Checked == true)
+                {
+                    core.goWithProxy = true;
+                    core.autoChangeProxy = false;
+                    core.SetCertainProxy(txtBProxy.Text);
+                    ChangeUI(this, new LoginEventArgs(EventType.Progress,
+                        "You will login with proxy " + txtBProxy.Text));
+                }
+                else
+                {
+                    core.autoChangeProxy = false;
+                    core.goWithProxy = false;
+                    ChangeUI(this, new LoginEventArgs(EventType.Progress,
+                        "You will login without proxy settings"));
+                }
+            }
         }
     }
 }
