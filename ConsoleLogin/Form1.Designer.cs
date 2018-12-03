@@ -674,7 +674,7 @@
             this.checkBoxProxyAuto.TabIndex = 25;
             this.checkBoxProxyAuto.Text = "Auto Change Proxy";
             this.checkBoxProxyAuto.UseVisualStyleBackColor = true;
-            this.checkBoxProxyAuto.CheckStateChanged += new System.EventHandler(this.checkBoxProxyAuto_CheckStateChanged);
+            this.checkBoxProxyAuto.Click += new System.EventHandler(this.checkBoxProxy_Click);
             // 
             // label11
             // 
@@ -704,7 +704,7 @@
             this.checkBoxWithProxy.Text = "Go With Proxy";
             this.checkBoxWithProxy.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.checkBoxWithProxy.UseVisualStyleBackColor = true;
-            this.checkBoxWithProxy.CheckStateChanged += new System.EventHandler(this.checkBoxProxyAuto_CheckStateChanged);
+            this.checkBoxWithProxy.Click += new System.EventHandler(this.checkBoxProxy_Click);
             // 
             // txtBruteUsername
             // 

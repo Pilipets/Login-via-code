@@ -69,7 +69,8 @@ namespace ConsoleLogin
             try
             {
                 HttpWebResponse resp = await req.GetResponseAsync() as HttpWebResponse;
-                cookies.Add(resp.Cookies);
+                if(cookies != null)
+                    cookies.Add(resp.Cookies);
                 string pageSrc = "";
                 using (StreamReader sr = new StreamReader(resp.GetResponseStream()))
                 {

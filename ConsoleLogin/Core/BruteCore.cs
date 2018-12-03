@@ -159,7 +159,7 @@ namespace ConsoleLogin
         {
             page = loginCore;
             ChangeUI(this, new LoginEventArgs(EventType.Progress,
-                "Set current Login Page as" + loginCore.Name));
+                "Set current Login Page as " + loginCore.Name));
         }
 
         public async Task ReadProxyFromFileAsync(string path)

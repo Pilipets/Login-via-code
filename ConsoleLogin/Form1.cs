@@ -25,9 +25,11 @@ namespace ConsoleLogin
         {
             core = new BruteCore(ChangeUI);
             try
-            {
-                await Task.Run(() => core.ReadPagesFromFile
-                (@"E:\Programming\C#\Practice\Login-via-code\ConsoleLogin\Data\LoginPages\LoginPages.txt"));
+            {//"E:\\Programming\\C#\\Practice\\Login-via-code\\ConsoleLogin\\bin\\Debug"
+                var path = Environment.CurrentDirectory;
+
+                path = path.Substring(0,path.LastIndexOf(@"\bin"));
+                await Task.Run(() => core.ReadPagesFromFile(path + @"\Data\LoginPages\LoginPages.txt"));
             }
             catch(Exception ex)
             {
@@ -194,6 +196,7 @@ namespace ConsoleLogin
         private void btnClearPagesList_Click(object sender, EventArgs e)
         {
             core.pages.Clear();
+            core.page = null;
             ChangeUI(this, new LoginEventArgs(EventType.Progress, "Login pages list has" +
                 "been succesfullu cleared"));
         }
@@ -210,8 +213,7 @@ namespace ConsoleLogin
         {
             core.DeleteCurrentPage();
         }
-
-        private void checkBoxProxyAuto_CheckStateChanged(object sender, EventArgs e)
+        private void checkBoxProxy_Click(object sender, EventArgs e)
         {
             if (sender == checkBoxWithProxy)
             {
@@ -239,7 +241,7 @@ namespace ConsoleLogin
                         "You will login without proxy settings"));
                 }
             }
-            else if(sender == checkBoxProxyAuto)
+            else if (sender == checkBoxProxyAuto)
             {
                 if (checkBoxProxyAuto.Checked == true)
                 {
